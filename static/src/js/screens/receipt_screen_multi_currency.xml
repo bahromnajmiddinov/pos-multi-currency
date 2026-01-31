@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-inherit="point_of_sale.ReceiptScreen" t-inherit-mode="extension">
+        <xpath expr="//div[@class='receipt-options d-flex flex-column gap-2']" position="before">
+            <div class="mc-receipt-summary" t-if="hasForeignPayments">
+                <div class="mc-receipt-summary-title">
+                    <i class="fa fa-globe me-1"/>
+                    Multi-Currency Payments
+                </div>
+                <div class="mc-receipt-summary-lines">
+                    <t t-foreach="foreignPaymentSummary" t-as="item" t-key="item.currencyId">
+                        <div class="mc-receipt-summary-line">
+                            <span class="mc-summary-currency"><t t-esc="item.currencyName"/></span>
+                            <span class="mc-summary-amount"><t t-esc="item.formattedAmount"/></span>
+                            <span class="mc-summary-rate">@ <t t-esc="item.rateLabel"/></span>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </t>
+
+</templates>

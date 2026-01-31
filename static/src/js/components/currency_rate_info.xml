@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="point_of_sale.CurrencyRateInfo">
+        <!--
+            Compact rate-summary bar shown in the payment screen when
+            multi-currency is active and at least one non-base currency
+            is in play on the current order.
+        -->
+        <div class="currency-rate-info-bar" t-if="isVisible">
+            <div class="cri-header">
+                <i class="fa fa-globe me-1" />
+                <span class="cri-title">Exchange Rates</span>
+            </div>
+            <div class="cri-rates">
+                <t t-foreach="activeRates" t-as="item" t-key="item.id">
+                    <div class="cri-rate-chip">
+                        <span class="cri-base-name"><t t-esc="baseCurrencyName" /></span>
+                        <span class="cri-arrow">→</span>
+                        <span class="cri-target-name"><t t-esc="item.name" /></span>
+                        <span class="cri-rate-val"><t t-esc="item.rateFormatted" /></span>
+                        <span class="cri-edited-flag" t-if="item.manuallyEdited">
+                            <i class="fa fa-pencil" title="Rate manually edited" />
+                        </span>
+                    </div>
+                </t>
+            </div>
+        </div>
+    </t>
+
+</templates>

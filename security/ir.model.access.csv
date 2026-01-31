@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+# Multi-currency fields are on existing models (pos.config, pos.payment, pos.payment.method, res.currency)
+# No new models are introduced, so no new access rules are strictly needed.
+# The fields inherit the access of their parent models.
+# This file is kept for future extensibility (e.g. a pos.multi_currency.rate.override model).

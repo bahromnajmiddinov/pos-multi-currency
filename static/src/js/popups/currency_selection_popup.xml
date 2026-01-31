@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="point_of_sale.CurrencySelectionPopup">
+        <div class="popup-root">
+            <div class="popup currency-selection-popup">
+                <div class="top-content">
+                    <h2 class="popup-title">
+                        <i class="fa fa-globe me-2" />
+                        <t t-esc="props.title || 'Select Payment Currency'" />
+                    </h2>
+                    <div class="popup-subtitle text-muted">
+                        <t t-esc="props.subtitle || 'Choose the currency the customer will pay in'" />
+                    </div>
+                </div>
+
+                <div class="currency-grid">
+                    <t t-foreach="currencies" t-as="cur" t-key="cur.id">
+                        <button
+                            class="currency-card btn"
+                            t-att-class="{
+                                'selected': selectedCurrencyId === cur.id,
+                                'base-currency': cur.id === baseCurrencyId,
+                            }"
+                            t-on-click="() => selectCurrency(cur)"
+                        >
+                            <div class="currency-symbol">
+                                <t t-esc="cur.symbol || cur.name" />
+                            </div>
+                            <div class="currency-name">
+                                <t t-esc="cur.name" />
+                            </div>
+                            <div class="currency-rate" t-if="cur.id !== baseCurrencyId">
+                                <span class="rate-label">1 <t t-esc="baseCurrencyName" /> =</span>
+                                <span class="rate-value"><t t-esc="formatRate(cur.id)" /></span>
+                                <span class="rate-currency"><t t-esc="cur.name" /></span>
+                            </div>
+                            <div class="currency-rate base-label" t-else="">
+                                <span class="badge bg-primary text-white">Base</span>
+                            </div>
+                            <!-- Converted amount preview -->
+                            <div class="currency-amount-preview" t-if="props.orderAmount">
+                                <span class="preview-label">Order:</span>
+                                <span class="preview-amount"><t t-esc="previewAmount(cur)" /></span>
+                            </div>
+                        </button>
+                    </t>
+                </div>
+
+                <!-- Rate edit section (only if permitted and a non-base currency is selected) -->
+                <div class="rate-edit-section" t-if="canEditRate and selectedCurrencyId and selectedCurrencyId !== baseCurrencyId">
+                    <div class="rate-edit-row">
+                        <span class="rate-edit-label">
+                            <i class="fa fa-pencil me-1" />
+                            <t t-esc="'1 ' + baseCurrencyName + ' ='" />
+                        </span>
+                        <input
+                            type="number"
+                            class="rate-edit-input form-control"
+                            t-model.number="manualRate"
+                            step="0.000001"
+                            min="0.000001"
+                            t-on-input="onRateInput"
+                        />
+                        <span class="rate-edit-currency"><t t-esc="selectedCurrencyName" /></span>
+                        <button class="btn btn-sm btn-outline-secondary reset-rate-btn" t-on-click="resetRate" title="Reset to market rate">
+                            <i class="fa fa-undo" />
+                        </button>
+                    </div>
+                    <div class="rate-edit-warning text-danger" t-if="rateWarning">
+                        <i class="fa fa-exclamation-triangle me-1" />
+                        <t t-esc="rateWarning" />
+                    </div>
+                </div>
+
+                <!-- Action buttons -->
+                <div class="bottom-buttons">
+                    <button class="button discard btn btn-secondary btn-lg" t-on-click="onCancel">
+                        <i class="fa fa-arrow-left me-1" />
+                        <span>Cancel</span>
+                    </button>
+                    <button
+                        class="button confirm btn btn-primary btn-lg"
+                        t-att-class="{ 'disabled': !selectedCurrencyId }"
+                        t-on-click="onConfirm"
+                    >
+                        <span>Confirm</span>
+                        <i class="fa fa-check ms-1" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

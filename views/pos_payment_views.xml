@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ═══ pos.payment form: show multi-currency fields ═══ -->
+        <record id="pos_multi_currency_payment_view" model="ir.ui.view">
+            <field name="name">pos.payment.multi_currency.form</field>
+            <field name="model">pos.payment</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group" position="after">
+                    <group string="Multi Currency" invisible="not payment_currency_id">
+                        <field name="payment_currency_id" readonly="1"/>
+                        <field name="payment_currency_amount" readonly="1"/>
+                        <field name="exchange_rate" readonly="1"/>
+                        <field name="rate_manually_edited" readonly="1"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- ═══ pos.payment list: optional multi-currency columns ═══ -->
+        <record id="pos_multi_currency_payment_list" model="ir.ui.view">
+            <field name="name">pos.payment.multi_currency.list</field>
+            <field name="model">pos.payment</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_payment_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//list" position="inside">
+                    <field name="payment_currency_id" optional="hide"/>
+                    <field name="payment_currency_amount" optional="hide"/>
+                    <field name="exchange_rate" optional="hide"/>
+                    <field name="rate_manually_edited" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

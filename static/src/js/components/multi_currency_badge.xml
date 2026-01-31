@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="point_of_sale.MultiCurrencyBadge">
+        <div class="multi-currency-badge" t-if="isVisible">
+            <div class="mc-badge-currency">
+                <span class="mc-badge-symbol"><t t-esc="currencySymbol" /></span>
+                <span class="mc-badge-name"><t t-esc="currencyName" /></span>
+            </div>
+            <div class="mc-badge-amount">
+                <t t-esc="formattedAmount" />
+            </div>
+            <div class="mc-badge-rate">
+                <span class="mc-badge-rate-label">Rate:</span>
+                <span class="mc-badge-rate-value"><t t-esc="formattedRate" /></span>
+                <span class="mc-badge-edited" t-if="isManuallyEdited">
+                    <i class="fa fa-pencil" title="Manually edited" />
+                </span>
+            </div>
+            <!-- Edit rate button (only if permitted) -->
+            <button
+                class="mc-badge-edit-btn btn btn-sm btn-outline-light"
+                t-if="canEditRate"
+                t-on-click="onEditRate"
+                title="Edit exchange rate"
+            >
+                <i class="fa fa-pencil" />
+            </button>
+        </div>
+    </t>
+
+</templates>

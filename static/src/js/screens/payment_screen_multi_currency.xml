@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         1. Toggle button + Statistics button inside PaymentScreenButtons
+         ═══════════════════════════════════════════════════════════════ -->
+    <t t-inherit="point_of_sale.PaymentScreenButtons" t-inherit-mode="extension">
+        <xpath expr="//div[@class='payment-buttons d-flex flex-column gap-1']" position="inside">
+            <!-- Multi-currency ON/OFF toggle (only when addon is configured at store level) -->
+            <div t-if="pos.multiCurrency and pos.multiCurrency.isConfigured" class="mc-toggle-row">
+                <button
+                    class="button mc-toggle-btn btn btn-lg w-100 lh-lg"
+                    t-att-class="{
+                        'btn-success':          pos.multiCurrency.isActive,
+                        'btn-outline-secondary': !pos.multiCurrency.isActive,
+                    }"
+                    t-on-click="toggleMultiCurrency"
+                    title="Toggle multi-currency for this session"
+                >
+                    <i class="fa fa-globe me-2"/>
+                    <span>
+                        <t t-if="pos.multiCurrency.isActive">Multi Currency ON</t>
+                        <t t-else="">Multi Currency OFF</t>
+                    </span>
+                </button>
+
+                <!-- Statistics shortcut (only while multi-currency is ON) -->
+                <button
+                    class="button btn btn-sm btn-outline-primary w-100 mt-1"
+                    t-if="pos.multiCurrency.isActive"
+                    t-on-click="openStatistics"
+                    title="View multi-currency statistics for this session"
+                >
+                    <i class="fa fa-bar-chart me-1"/> Statistics
+                </button>
+            </div>
+        </xpath>
+    </t>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         2. CurrencyRateInfo bar + MultiCurrencyBadge per payment line
+         ═══════════════════════════════════════════════════════════════ -->
+    <t t-inherit="point_of_sale.PaymentScreenPaymentLines" t-inherit-mode="extension">
+        <!-- Rate-info summary bar at the top of the payment lines list -->
+        <xpath expr="//div[@class='paymentlines d-flex flex-column overflow-y-auto gap-2 mb-3']" position="inside">
+            <CurrencyRateInfo paymentLines="props.paymentLines"/>
+        </xpath>
+
+        <!-- Badge showing foreign-currency details on each payment line -->
+        <xpath expr="//div[@class='payment-infos d-flex align-items-center justify-content-between flex-grow-1 px-3 py-3 text-truncate cursor-pointer fs-2'][1]" position="after">
+            <MultiCurrencyBadge paymentLine="line"/>
+        </xpath>
+    </t>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         3. OrderReceipt – per-line converted amount on printed receipt
+         ═══════════════════════════════════════════════════════════════ -->
+    <t t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension">
+        <xpath expr="//div[@class='paymentlines text-start pt-1']" position="replace">
+            <div class="paymentlines text-start pt-1" t-foreach="paymentLines" t-as="line" t-key="line_index">
+                <t t-esc="line.payment_method_id.name"/>
+                <span t-out="formatCurrency(line.getAmount())" class="pos-receipt-right-align font-monospace"/>
+                <!-- Foreign-currency sub-line (indented, italic) -->
+                <t t-if="line.isMultiCurrency and line.isMultiCurrency()">
+                    <div class="mc-receipt-sub-line">
+                        <span class="mc-receipt-converted">
+                            (<t t-esc="line.payment_currency_id.symbol || line.payment_currency_id.name"/>
+                            <t t-esc="line.getPaymentCurrencyAmount().toFixed(2)"/>
+                            @ 1 <t t-esc="order.currency.name"/> =
+                            <t t-esc="line.exchange_rate.toFixed(4)"/>
+                            <t t-esc="line.payment_currency_id.name"/>)
+                        </span>
+                    </div>
+                </t>
+            </div>
+        </xpath>
+    </t>
+
+</templates>

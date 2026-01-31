@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="point_of_sale.StatisticsPopup">
+        <div class="popup-root">
+            <div class="popup statistics-popup">
+
+                <div class="top-content">
+                    <h2 class="popup-title">
+                        <i class="fa fa-bar-chart me-2"/>
+                        Multi-Currency Statistics
+                    </h2>
+                    <div class="popup-subtitle text-muted">
+                        Current session summary
+                    </div>
+                </div>
+
+                <!-- loading state -->
+                <div class="stats-loading" t-if="state.loading">
+                    <i class="fa fa-spinner fa-spin me-2"/>
+                    Loading…
+                </div>
+
+                <!-- empty state -->
+                <div class="stats-empty" t-if="!state.loading and state.rows.length === 0">
+                    <i class="fa fa-info-circle me-2"/>
+                    No multi-currency payments in this session yet.
+                </div>
+
+                <!-- data table -->
+                <div class="stats-table-wrap" t-if="!state.loading and state.rows.length > 0">
+                    <table class="table table-sm stats-table">
+                        <thead>
+                            <tr>
+                                <th>Currency</th>
+                                <th class="text-end">Total (foreign)</th>
+                                <th class="text-end">Total (base)</th>
+                                <th class="text-end">Txns</th>
+                                <th class="text-end">Edited</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="state.rows" t-as="row" t-key="row.currency_id">
+                                <tr>
+                                    <td class="stats-currency-name"><t t-esc="row.currency_name"/></td>
+                                    <td class="text-end stats-amount"><t t-esc="row.totalForeign"/></td>
+                                    <td class="text-end stats-amount"><t t-esc="row.totalBase"/></td>
+                                    <td class="text-end"><t t-esc="row.transaction_count"/></td>
+                                    <td class="text-end">
+                                        <t t-if="row.manually_edited_count > 0">
+                                            <span class="badge bg-warning text-dark">
+                                                <t t-esc="row.manually_edited_count"/>
+                                            </span>
+                                        </t>
+                                        <t t-else="">—</t>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                        <tfoot>
+                            <tr class="stats-totals">
+                                <td><strong>Totals</strong></td>
+                                <td class="text-end">—</td>
+                                <td class="text-end stats-amount"><t t-esc="grandTotalBase"/></td>
+                                <td class="text-end"><t t-esc="grandTotalTxns"/></td>
+                                <td class="text-end"><t t-esc="grandTotalEdited"/></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="bottom-buttons">
+                    <button class="button discard btn btn-secondary btn-lg" t-on-click="onClose">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

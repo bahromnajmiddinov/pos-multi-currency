@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!--
+            Seed data for pos_multi_currency.
+            No demo records are created; this file exists as a placeholder
+            for future rate-override presets or default currency sets.
+
+            The actual exchange rates are fetched live from res.currency.rate
+            via the get_multi_currency_rates method on pos.config (defined in
+            models/pos_config.py) or via the /pos/multi_currency/rates controller
+            endpoint.
+        -->
+    </data>
+</odoo>

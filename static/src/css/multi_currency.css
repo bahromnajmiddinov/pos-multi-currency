@@ -1,0 +1,633 @@
+/* ============================================================
+   multi_currency.css
+   POS Multi-Currency Addon — All UI styles
+   ============================================================ */
+
+/* ─── Currency Selection Popup ─────────────────────────────── */
+
+.currency-selection-popup {
+    width: 90vw;
+    max-width: 680px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.28);
+    background: #fff;
+}
+
+.currency-selection-popup .top-content {
+    padding: 24px 28px 12px;
+    text-align: center;
+}
+
+.currency-selection-popup .popup-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 4px;
+}
+
+.currency-selection-popup .popup-subtitle {
+    font-size: 0.88rem;
+}
+
+/* Currency grid */
+.currency-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    padding: 12px 24px;
+    overflow-y: auto;
+    max-height: 340px;
+}
+
+.currency-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 10px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    background: #fafafa;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: center;
+}
+
+.currency-card:hover {
+    border-color: #6c757d;
+    background: #f0f4ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.currency-card.selected {
+    border-color: #0d6efd;
+    background: #e8f0fe;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.2);
+}
+
+.currency-card.base-currency .currency-rate .badge {
+    font-size: 0.7rem;
+}
+
+.currency-symbol {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #0d6efd;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.currency-name {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #495057;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.currency-rate {
+    font-size: 0.7rem;
+    color: #6c757d;
+    line-height: 1.4;
+}
+
+.currency-rate .rate-value {
+    font-weight: 600;
+    color: #333;
+}
+
+.currency-amount-preview {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #e9ecef;
+    width: 100%;
+    font-size: 0.72rem;
+    color: #495057;
+}
+
+.currency-amount-preview .preview-amount {
+    font-weight: 700;
+    color: #0d6efd;
+}
+
+/* Rate edit section inside currency popup */
+.rate-edit-section {
+    padding: 12px 24px;
+    background: #fff8e1;
+    border-top: 1px solid #ffe082;
+    border-bottom: 1px solid #ffe082;
+}
+
+.rate-edit-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.rate-edit-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #556270;
+    white-space: nowrap;
+}
+
+.rate-edit-input {
+    width: 130px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: right;
+    padding: 6px 10px;
+}
+
+.rate-edit-currency {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.reset-rate-btn {
+    font-size: 0.75rem;
+}
+
+.rate-edit-warning {
+    font-size: 0.75rem;
+    margin-top: 6px;
+}
+
+/* Popup bottom buttons */
+.currency-selection-popup .bottom-buttons {
+    display: flex;
+    gap: 12px;
+    padding: 16px 24px 20px;
+    justify-content: flex-end;
+}
+
+.currency-selection-popup .bottom-buttons .btn {
+    min-width: 120px;
+}
+
+/* ─── Rate Edit Popup ──────────────────────────────────────── */
+
+.rate-edit-popup {
+    width: 90vw;
+    max-width: 480px;
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.28);
+    background: #fff;
+    overflow: hidden;
+}
+
+.rate-edit-popup .top-content {
+    padding: 20px 24px 8px;
+    text-align: center;
+}
+
+.rate-edit-popup .popup-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1a1a2e;
+}
+
+.rate-info-block {
+    padding: 12px 24px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #eee;
+}
+
+.rate-info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    font-size: 0.82rem;
+}
+
+.rate-info-label {
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.rate-info-value {
+    font-weight: 600;
+    color: #212529;
+}
+
+.rate-info-value.market-rate {
+    color: #0d6efd;
+}
+
+.rate-input-block {
+    padding: 18px 24px;
+    text-align: center;
+}
+
+.rate-input-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 10px;
+}
+
+.rate-input-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.rate-input {
+    width: 150px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.rate-input-currency {
+    font-weight: 700;
+    color: #0d6efd;
+    font-size: 0.95rem;
+}
+
+.reset-btn {
+    font-size: 0.75rem;
+    margin-top: 8px;
+    color: #6c757d;
+}
+
+.conversion-preview {
+    margin: 0 24px 4px;
+    padding: 12px 16px;
+    background: #e8f4fd;
+    border-radius: 8px;
+}
+
+.preview-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    padding: 3px 0;
+}
+
+.preview-row.converted .preview-value {
+    font-weight: 700;
+    color: #0d6efd;
+    font-size: 0.92rem;
+}
+
+.rate-warning {
+    padding: 8px 24px;
+    font-size: 0.78rem;
+    color: #dc3545;
+    text-align: center;
+}
+
+.rate-edit-popup .bottom-buttons {
+    display: flex;
+    gap: 12px;
+    padding: 16px 24px 20px;
+    justify-content: flex-end;
+}
+
+/* ─── Multi Currency Badge (on payment lines) ─────────────── */
+
+.multi-currency-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    margin: 4px 0 2px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 0.78rem;
+    position: relative;
+    flex-wrap: wrap;
+}
+
+.mc-badge-currency {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-width: 58px;
+}
+
+.mc-badge-symbol {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ffd700;
+}
+
+.mc-badge-name {
+    font-weight: 600;
+    color: #ccc;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+}
+
+.mc-badge-amount {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #fff;
+    flex-grow: 1;
+    text-align: right;
+}
+
+.mc-badge-rate {
+    width: 100%;
+    font-size: 0.68rem;
+    color: #aaa;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.mc-badge-rate-value {
+    color: #ffd700;
+    font-weight: 600;
+}
+
+.mc-badge-edited {
+    color: #ffa500;
+    font-size: 0.6rem;
+}
+
+.mc-badge-edit-btn {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #ccc;
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.mc-badge-edit-btn:hover {
+    background: rgba(255, 255, 255, 0.22);
+    color: #fff;
+}
+
+/* ─── Currency Rate Info Bar ───────────────────────────────── */
+
+.currency-rate-info-bar {
+    padding: 8px 12px;
+    background: #f0f4ff;
+    border: 1px solid #d0e0ff;
+    border-radius: 8px;
+    margin-bottom: 4px;
+}
+
+.cri-header {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #0d6efd;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.cri-rates {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.cri-rate-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    background: #fff;
+    border: 1px solid #c8d8f0;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    color: #333;
+}
+
+.cri-base-name {
+    font-weight: 700;
+    color: #0d6efd;
+}
+
+.cri-arrow {
+    color: #6c757d;
+}
+
+.cri-target-name {
+    font-weight: 600;
+    color: #495057;
+}
+
+.cri-rate-val {
+    font-weight: 700;
+    color: #333;
+    margin-left: 2px;
+}
+
+.cri-edited-flag {
+    color: #ffa500;
+    font-size: 0.6rem;
+}
+
+/* ─── Multi-Currency Toggle Button ─────────────────────────── */
+
+.mc-toggle-row {
+    margin-top: 4px;
+}
+
+.mc-toggle-btn {
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.mc-toggle-btn.btn-success {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    border-color: transparent;
+    color: #fff;
+}
+
+.mc-toggle-btn.btn-outline-secondary:hover {
+    background: #f0f0f0;
+}
+
+/* ─── Receipt Multi-Currency Lines ─────────────────────────── */
+
+.mc-receipt-sub-line {
+    font-size: 0.72rem;
+    color: #6c757d;
+    padding-left: 18px;
+    line-height: 1.5;
+}
+
+.mc-receipt-converted {
+    font-style: italic;
+}
+
+/* ─── Receipt Screen Summary Block ─────────────────────────── */
+
+.mc-receipt-summary {
+    margin: 10px 0;
+    padding: 10px 14px;
+    background: #f0f7ff;
+    border: 1px solid #c8dff5;
+    border-radius: 8px;
+}
+
+.mc-receipt-summary-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #0d6efd;
+    margin-bottom: 6px;
+}
+
+.mc-receipt-summary-line {
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    font-size: 0.75rem;
+    padding: 2px 0;
+}
+
+.mc-summary-currency {
+    font-weight: 700;
+    color: #333;
+    min-width: 36px;
+}
+
+.mc-summary-amount {
+    font-weight: 600;
+    color: #0d6efd;
+    flex-grow: 1;
+    text-align: right;
+}
+
+.mc-summary-rate {
+    color: #6c757d;
+    font-size: 0.68rem;
+}
+
+/* ─── Responsive: small screens ────────────────────────────── */
+
+@media (max-width: 600px) {
+    .currency-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        padding: 8px 16px;
+    }
+
+    .currency-card {
+        padding: 12px 6px 10px;
+    }
+
+    .currency-symbol {
+        font-size: 1.3rem;
+    }
+
+    .multi-currency-badge {
+        font-size: 0.72rem;
+        padding: 6px 8px;
+    }
+
+    .rate-edit-input {
+        width: 110px;
+    }
+}
+
+/* ─── Statistics Popup ─────────────────────────────────────────── */
+
+.statistics-popup {
+    width: 90vw;
+    max-width: 640px;
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.28);
+    background: #fff;
+    overflow: hidden;
+}
+
+.statistics-popup .top-content {
+    padding: 22px 28px 10px;
+    text-align: center;
+}
+
+.statistics-popup .popup-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 2px;
+}
+
+.statistics-popup .popup-subtitle {
+    font-size: 0.82rem;
+    color: #6c757d;
+}
+
+.stats-loading,
+.stats-empty {
+    padding: 32px;
+    text-align: center;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.stats-table-wrap {
+    padding: 8px 20px 4px;
+    overflow-x: auto;
+}
+
+.stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+}
+
+.stats-table thead th {
+    background: #f0f4ff;
+    color: #0d6efd;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.4px;
+    padding: 8px 10px;
+    border-bottom: 2px solid #d0e0ff;
+    white-space: nowrap;
+}
+
+.stats-table tbody td {
+    padding: 9px 10px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+}
+
+.stats-table .stats-currency-name {
+    font-weight: 600;
+    color: #0d6efd;
+}
+
+.stats-table .stats-amount {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.stats-table tfoot .stats-totals td {
+    padding: 10px 10px;
+    background: #f8f9fa;
+    border-top: 2px solid #dee2e6;
+    font-weight: 700;
+    color: #212529;
+}
+
+.statistics-popup .bottom-buttons {
+    display: flex;
+    justify-content: flex-end;
+    padding: 14px 24px 18px;
+}
