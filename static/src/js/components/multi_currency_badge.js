@@ -18,7 +18,7 @@ import { makeAwaitable } from "@point_of_sale/app/utils/make_awaitable_dialog";
  *   - paymentLine  {Object}   The pos.payment record
  */
 export class MultiCurrencyBadge extends Component {
-    static template = "point_of_sale.MultiCurrencyBadge";
+    static template = "pos_multi.MultiCurrencyBadge";
     static props = {
         paymentLine: { type: Object },
     };
@@ -81,16 +81,20 @@ export class MultiCurrencyBadge extends Component {
             baseCurrencyId
         );
 
-        const newRate = await makeAwaitable(this.dialog, RateEditPopup, {
-            baseCurrencyId,
-            paymentCurrency,
-            marketRate,
-            currentRate: this.line.exchange_rate || marketRate,
-            orderAmount: this.line.getAmount(),
-        });
+        try {
+            const newRate = await makeAwaitable(this.dialog, RateEditPopup, {
+                baseCurrencyId,
+                paymentCurrency,
+                marketRate,
+                currentRate: this.line.exchange_rate || marketRate,
+                orderAmount: this.line.getAmount(),
+            });
 
-        if (newRate !== undefined && newRate !== null) {
-            this.line.setManualRate(newRate);
+            if (newRate !== undefined && newRate !== null) {
+                this.line.setManualRate(newRate);
+            }
+        } catch (error) {
+            console.log("Rate edit cancelled or error:", error);
         }
     }
 }

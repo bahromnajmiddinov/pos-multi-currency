@@ -5,10 +5,6 @@ import { Base } from "@point_of_sale/app/models/related_models";
 import { getEffectiveRate, roundTo, decimalsFromRounding } from "@pos_multi/js/utils/currency_utils";
 const { DateTime } = luxon;
 
-/**
- * Extends the base PosPayment model to carry multi-currency data.
- * Patched onto the existing pos.payment record via the registry.
- */
 export class PosPaymentMultiCurrency extends Base {
     static pythonModel = "pos.payment";
 
@@ -34,7 +30,6 @@ export class PosPaymentMultiCurrency extends Base {
     setAmount(value) {
         this.pos_order_id.assertEditable();
         this.amount = this.pos_order_id.currency.round(parseFloat(value) || 0);
-        // Keep payment_currency_amount in sync if currency is set
         this._syncCurrencyAmount();
     }
 
@@ -89,15 +84,29 @@ export class PosPaymentMultiCurrency extends Base {
 
     updateRefundPaymentLine(refundedPaymentLine) {}
 
-    // ─── Multi-currency API ─────────────────────────────────────────
+    // ─── Export for receipt ──────────────────────────────────────────
 
     /**
-     * Set the payment currency and compute the converted amount & rate.
-     *
-     * @param {Object}  currency      The res.currency record object
-     * @param {Object}  rates         Rates map { [id]: rateToBase }
-     * @param {number}  baseCurrencyId
+     * Export payment line data for receipt printing.
+     * This is called when generating receipt data.
      */
+    export_for_printing() {
+        const result = {
+            name: this.payment_method_id.name,
+            amount: this.amount,
+            // Multi-currency fields for receipt
+            payment_currency_id: this.payment_currency_id?.id || null,
+            payment_currency_name: this.payment_currency_id?.name || null,
+            payment_currency_symbol: this.payment_currency_id?.symbol || null,
+            payment_currency_amount: this.payment_currency_amount || 0,
+            exchange_rate: this.exchange_rate || 1.0,
+            rate_manually_edited: this.rate_manually_edited || false,
+        };
+        return result;
+    }
+
+    // ─── Multi-currency API ─────────────────────────────────────────
+
     setPaymentCurrency(currency, rates, baseCurrencyId) {
         if (!currency) return;
         this.payment_currency_id = currency;
@@ -105,17 +114,12 @@ export class PosPaymentMultiCurrency extends Base {
         const orderCurrencyId = this.pos_order_id?.currency?.id;
         if (!orderCurrencyId) return;
 
-        // Compute effective rate: 1 order-currency = ? payment-currency
         const rate = getEffectiveRate(orderCurrencyId, currency.id, rates, baseCurrencyId);
         this.exchange_rate = roundTo(rate, 6);
         this.rate_manually_edited = false;
         this._syncCurrencyAmount();
     }
 
-    /**
-     * Manually override the exchange rate (cashier adjustment).
-     * @param {number} newRate  New rate (1 order unit = newRate payment units)
-     */
     setManualRate(newRate) {
         if (newRate && newRate > 0) {
             this.exchange_rate = roundTo(newRate, 6);
@@ -124,26 +128,16 @@ export class PosPaymentMultiCurrency extends Base {
         }
     }
 
-    /**
-     * Return the amount expressed in the payment currency.
-     */
     getPaymentCurrencyAmount() {
         return this.payment_currency_amount || 0;
     }
 
-    /**
-     * Returns true if this line uses a foreign (non-order) currency.
-     */
     isMultiCurrency() {
         if (!this.payment_currency_id) return false;
         const orderCurrencyId = this.pos_order_id?.currency?.id;
         return this.payment_currency_id.id !== orderCurrencyId;
     }
 
-    /**
-     * Keep payment_currency_amount in sync whenever amount or rate changes.
-     * @private
-     */
     _syncCurrencyAmount() {
         if (!this.payment_currency_id) {
             this.payment_currency_amount = this.amount;
@@ -154,7 +148,6 @@ export class PosPaymentMultiCurrency extends Base {
     }
 }
 
-// Replace the default pos.payment model registration
 registry.category("pos_available_models").add("pos.payment", PosPaymentMultiCurrency, {
     force: true,
 });

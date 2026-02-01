@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
-    <t t-name="point_of_sale.MultiCurrencyBadge">
+    <t t-name="pos_multi.MultiCurrencyBadge">
         <div class="multi-currency-badge" t-if="isVisible">
             <div class="mc-badge-currency">
                 <span class="mc-badge-symbol"><t t-esc="currencySymbol" /></span>

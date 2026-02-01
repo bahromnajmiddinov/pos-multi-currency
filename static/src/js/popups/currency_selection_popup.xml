@@ -1,95 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
-    <t t-name="point_of_sale.CurrencySelectionPopup">
-        <div class="popup-root">
-            <div class="popup currency-selection-popup">
-                <div class="top-content">
-                    <h2 class="popup-title">
-                        <i class="fa fa-globe me-2" />
-                        <t t-esc="props.title || 'Select Payment Currency'" />
-                    </h2>
-                    <div class="popup-subtitle text-muted">
-                        <t t-esc="props.subtitle || 'Choose the currency the customer will pay in'" />
-                    </div>
+    <t t-name="pos_multi.CurrencySelectionPopup">
+        <Dialog title="props.title || 'Select Payment Currency'" size="'lg'">
+            <div class="mc-popup-content">
+                
+                <!-- Subtitle -->
+                <div class="mc-subtitle" t-if="props.subtitle">
+                    <t t-esc="props.subtitle" />
                 </div>
 
-                <div class="currency-grid">
+                <!-- Currency grid - Clean & Minimal -->
+                <div class="mc-currency-grid">
                     <t t-foreach="currencies" t-as="cur" t-key="cur.id">
                         <button
-                            class="currency-card btn"
+                            class="mc-currency-card"
                             t-att-class="{
-                                'selected': selectedCurrencyId === cur.id,
-                                'base-currency': cur.id === baseCurrencyId,
+                                'mc-selected': selectedCurrencyId === cur.id,
+                                'mc-base': cur.id === baseCurrencyId,
                             }"
-                            t-on-click="() => selectCurrency(cur)"
+                            t-on-click="() => this.selectCurrency(cur)"
                         >
-                            <div class="currency-symbol">
-                                <t t-esc="cur.symbol || cur.name" />
+                            <!-- Currency Symbol -->
+                            <div class="mc-symbol">
+                                <t t-esc="cur.symbol || cur.name.substring(0, 1)" />
                             </div>
-                            <div class="currency-name">
+                            
+                            <!-- Currency Name -->
+                            <div class="mc-name">
                                 <t t-esc="cur.name" />
                             </div>
-                            <div class="currency-rate" t-if="cur.id !== baseCurrencyId">
-                                <span class="rate-label">1 <t t-esc="baseCurrencyName" /> =</span>
-                                <span class="rate-value"><t t-esc="formatRate(cur.id)" /></span>
-                                <span class="rate-currency"><t t-esc="cur.name" /></span>
+                            
+                            <!-- Exchange Rate or Base Badge -->
+                            <div class="mc-rate">
+                                <t t-if="cur.id === baseCurrencyId">
+                                    <span class="mc-base-badge">BASE</span>
+                                </t>
+                                <t t-else="">
+                                    <span class="mc-rate-text">
+                                        1 = <t t-esc="formatRate(cur.id)" />
+                                    </span>
+                                </t>
                             </div>
-                            <div class="currency-rate base-label" t-else="">
-                                <span class="badge bg-primary text-white">Base</span>
+                            
+                            <!-- Preview Amount -->
+                            <div class="mc-preview" t-if="props.orderAmount">
+                                <t t-esc="previewAmount(cur)" />
                             </div>
-                            <!-- Converted amount preview -->
-                            <div class="currency-amount-preview" t-if="props.orderAmount">
-                                <span class="preview-label">Order:</span>
-                                <span class="preview-amount"><t t-esc="previewAmount(cur)" /></span>
+                            
+                            <!-- Selection Indicator -->
+                            <div class="mc-check" t-if="selectedCurrencyId === cur.id">
+                                <i class="fa fa-check-circle" />
                             </div>
                         </button>
                     </t>
                 </div>
 
-                <!-- Rate edit section (only if permitted and a non-base currency is selected) -->
-                <div class="rate-edit-section" t-if="canEditRate and selectedCurrencyId and selectedCurrencyId !== baseCurrencyId">
-                    <div class="rate-edit-row">
-                        <span class="rate-edit-label">
-                            <i class="fa fa-pencil me-1" />
-                            <t t-esc="'1 ' + baseCurrencyName + ' ='" />
+                <!-- Rate Edit Section (Minimalistic) -->
+                <div class="mc-rate-edit" t-if="showRateEdit">
+                    <div class="mc-rate-edit-header">
+                        <i class="fa fa-pencil" />
+                        <span>Custom Rate</span>
+                    </div>
+                    <div class="mc-rate-edit-input">
+                        <span class="mc-rate-label">
+                            1 <t t-esc="baseCurrencyName" /> =
                         </span>
                         <input
                             type="number"
-                            class="rate-edit-input form-control"
-                            t-model.number="manualRate"
+                            class="mc-rate-field"
+                            t-model.number="state.manualRate"
                             step="0.000001"
                             min="0.000001"
                             t-on-input="onRateInput"
+                            placeholder="Enter rate"
                         />
-                        <span class="rate-edit-currency"><t t-esc="selectedCurrencyName" /></span>
-                        <button class="btn btn-sm btn-outline-secondary reset-rate-btn" t-on-click="resetRate" title="Reset to market rate">
+                        <span class="mc-rate-currency">
+                            <t t-esc="selectedCurrencyName" />
+                        </span>
+                        <button class="mc-reset-btn" t-on-click="resetRate">
                             <i class="fa fa-undo" />
                         </button>
                     </div>
-                    <div class="rate-edit-warning text-danger" t-if="rateWarning">
-                        <i class="fa fa-exclamation-triangle me-1" />
-                        <t t-esc="rateWarning" />
+                    <div class="mc-rate-warning" t-if="state.rateWarning">
+                        <i class="fa fa-exclamation-triangle" />
+                        <t t-esc="state.rateWarning" />
                     </div>
                 </div>
 
-                <!-- Action buttons -->
-                <div class="bottom-buttons">
-                    <button class="button discard btn btn-secondary btn-lg" t-on-click="onCancel">
-                        <i class="fa fa-arrow-left me-1" />
-                        <span>Cancel</span>
+            </div>
+
+            <!-- Footer -->
+            <t t-set-slot="footer">
+                <div class="mc-footer">
+                    <button class="mc-btn mc-btn-cancel" t-on-click="onCancel">
+                        Cancel
                     </button>
                     <button
-                        class="button confirm btn btn-primary btn-lg"
+                        class="mc-btn mc-btn-confirm"
                         t-att-class="{ 'disabled': !selectedCurrencyId }"
                         t-on-click="onConfirm"
                     >
                         <span>Confirm</span>
-                        <i class="fa fa-check ms-1" />
+                        <i class="fa fa-check" />
                     </button>
                 </div>
-            </div>
-        </div>
+            </t>
+        </Dialog>
     </t>
 
 </templates>

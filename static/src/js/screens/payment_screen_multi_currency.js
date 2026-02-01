@@ -1,5 +1,8 @@
+/** @odoo-module */
+
 import { usePos } from "@point_of_sale/app/hooks/pos_hook";
 import { useService } from "@web/core/utils/hooks";
+import { Component } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { CurrencySelectionPopup } from "@pos_multi/js/popups/currency_selection_popup";
 import { MultiCurrencyBadge } from "@pos_multi/js/components/multi_currency_badge";
@@ -16,6 +19,12 @@ import { patch } from "@web/core/utils/patch";
 import { PaymentScreen } from "@point_of_sale/app/screens/payment_screen/payment_screen";
 
 patch(PaymentScreen.prototype, {
+    setup() {
+        super.setup(...arguments);
+        // CRITICAL: Use the correct service name
+        this.dialog = useService("dialog");
+    },
+
     async addNewPaymentLine(paymentMethod) {
         const mc = this.pos?.multiCurrency;
 
@@ -38,17 +47,19 @@ patch(PaymentScreen.prototype, {
         }
 
         // Show currency popup BEFORE adding the line
-        const dialog = this.env?.services?.dialog;
+        // OPTION 1: Using makeAwaitable (for popups that return data)
         let selection;
         try {
-            selection = await makeAwaitable(dialog, CurrencySelectionPopup, {
+            selection = await makeAwaitable(this.dialog, CurrencySelectionPopup, {
                 title: "Select Payment Currency",
                 subtitle: `Payment method: ${paymentMethod.name}`,
-                orderAmount: this.currentOrder?.get_due() || 0,
+                orderAmount: this.currentOrder?.remainingDue || 0,
             });
-        } catch {
-            return false; // user cancelled
+        } catch (error) {
+            console.log("Currency selection cancelled or error:", error);
+            return false;
         }
+        
         if (!selection) return false;
 
         // Add the line via core logic
@@ -68,14 +79,26 @@ patch(PaymentScreen.prototype, {
 
     toggleMultiCurrency() {
         const mc = this.pos?.multiCurrency;
-        if (mc) mc.setSessionEnabled(!mc.isActive);
+        if (mc) {
+            mc.setSessionEnabled(!mc.isActive);
+        }
     },
 
     async openStatistics() {
-        const dialog = this.env?.services?.dialog;
-        await makeAwaitable(dialog, StatisticsPopup, {
+        // OPTION 1: Using dialog.add (for info-only popups, no return value)
+        this.dialog.add(StatisticsPopup, {
             pos: this.pos,
         });
+        
+        /* OPTION 2: Using makeAwaitable (if you need to know when it closes)
+        try {
+            await makeAwaitable(this.dialog, StatisticsPopup, {
+                pos: this.pos,
+            });
+        } catch (error) {
+            console.log("Statistics popup closed");
+        }
+        */
     },
 });
 

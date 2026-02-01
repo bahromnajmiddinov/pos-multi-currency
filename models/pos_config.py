@@ -41,42 +41,140 @@ class PosConfig(models.Model):
                     "when multi currency is enabled."
                 )
 
-    # ─── POS session data hooks ──────────────────────────────────────
+    # ─── Load currencies into POS ────────────────────────────────────
 
-    def _pos_config_data(self):
-        """Extend config payload sent to the POS frontend on session open."""
-        data = super()._pos_config_data()
-        data["multi_currency_enabled"] = self.multi_currency_enabled
-        data["multi_currency_allow_rate_edit"] = self.multi_currency_allow_rate_edit
-        data["multi_currency_ids"] = (
-            self.multi_currency_ids.ids if self.multi_currency_enabled else []
-        )
+    def _get_pos_base_models_to_load(self):
+        """
+        Odoo 19+ method to specify which models to load.
+        This ensures res.currency is loaded.
+        """
+        models = super()._get_pos_base_models_to_load()
+        # Make sure res.currency is in the list
+        if "res.currency" not in models:
+            models.append("res.currency")
+        return models
+
+    def _get_pos_res_currency_domain(self):
+        """
+        Define which currency records to load into POS.
+        Called by Odoo's data loading system.
+        """
+        # Load the company currency + all configured multi-currencies
+        domain = [("id", "=", self.currency_id.id)]
+        
+        if self.multi_currency_enabled and self.multi_currency_ids:
+            # Add all configured currencies
+            domain = ["|", ("id", "in", self.multi_currency_ids.ids)] + domain
+        
+        return domain
+
+    def _get_pos_res_currency_fields(self):
+        """
+        Define which fields to load for res.currency records.
+        """
+        return [
+            "name",
+            "symbol",
+            "rounding",
+            "rate",
+            "active",
+            "decimal_places",
+            "position",
+        ]
+
+    # ─── POS session data hooks ──────────────────────────────────────
+    @api.model
+    def _load_pos_data_read(self, records, config):
+        """
+        Override to add multi-currency configuration to POS config data.
+        """
+        read_records = super()._load_pos_data_read(records, config)
+        
+        if not read_records:
+            return read_records
+        
+        # Add multi-currency configuration to the first record (which is this config)
+        record = read_records[0]
+        
+        # Add multi-currency config - use 'config' not 'self'
+        record['multi_currency_enabled'] = config.multi_currency_enabled
+        record['multi_currency_allow_rate_edit'] = config.multi_currency_allow_rate_edit
+        # Use mapped('id') to ensure proper ID list serialization
+        record['multi_currency_ids'] = config.multi_currency_ids.mapped('id') if config.multi_currency_enabled else []
+        
         # Permission check: can the current user edit rates?
         can_edit = False
-        if (
-            self.multi_currency_allow_rate_edit
-            and self.multi_currency_rate_edit_group_id
-        ):
+        if config.multi_currency_allow_rate_edit and config.multi_currency_rate_edit_group_id:
             can_edit = self.env.user.has_group(
-                self.multi_currency_rate_edit_group_id.full_name
+                config.multi_currency_rate_edit_group_id.full_name
             )
-        data["multi_currency_can_edit_rate"] = can_edit
-        return data
-
-    def get_pos_ui_info(self, params=None):
-        """Ensure extra currency records are loaded into the POS session cache."""
-        info = super().get_pos_ui_info(params)
-        if self.multi_currency_enabled and self.multi_currency_ids:
-            extra_ids = self.multi_currency_ids.ids
-            loaded = info.get("data", {}).get("res.currency", [])
-            loaded_ids = {r["id"] for r in loaded} if loaded else set()
-            missing = [cid for cid in extra_ids if cid not in loaded_ids]
-            if missing:
-                extra = self.env["res.currency"].browse(missing).read()
-                info.setdefault("data", {}).setdefault("res.currency", []).extend(extra)
-        return info
+        record['multi_currency_can_edit_rate'] = can_edit
+        
+        return read_records
 
     # ─── RPC methods called by the POS frontend ──────────────────────
+    
+    def get_multi_currency_config(self):
+        """
+        Return multi-currency configuration and available currencies for this POS.
+        Called by the POS frontend on initialization.
+        
+        Returns:
+            dict: {
+                "enabled": bool,
+                "allow_rate_edit": bool,
+                "can_edit_rate": bool,
+                "base_currency": {id, name, symbol, ...},
+                "currencies": [{id, name, symbol, rate, ...}]
+            }
+        """
+        self.ensure_one()
+        
+        result = {
+            "enabled": self.multi_currency_enabled,
+            "allow_rate_edit": self.multi_currency_allow_rate_edit,
+            "can_edit_rate": False,
+            "base_currency": None,
+            "currencies": []
+        }
+        
+        # Check if user can edit rates
+        if self.multi_currency_allow_rate_edit and self.multi_currency_rate_edit_group_id:
+            result["can_edit_rate"] = self.env.user.has_group(
+                self.multi_currency_rate_edit_group_id.full_name
+            )
+        
+        # Get base currency
+        base_currency = self.currency_id
+        if base_currency:
+            result["base_currency"] = {
+                "id": base_currency.id,
+                "name": base_currency.name,
+                "symbol": base_currency.symbol,
+                "rounding": base_currency.rounding,
+                "rate": base_currency.rate,
+                "decimal_places": base_currency.decimal_places,
+                "position": base_currency.position,
+            }
+        
+        # Get all configured currencies
+        if self.multi_currency_enabled and self.multi_currency_ids:
+            currency_ids = self.multi_currency_ids | base_currency
+            for currency in currency_ids:
+                result["currencies"].append({
+                    "id": currency.id,
+                    "name": currency.name,
+                    "symbol": currency.symbol,
+                    "rounding": currency.rounding,
+                    "rate": currency.rate,
+                    "decimal_places": currency.decimal_places,
+                    "position": currency.position,
+                })
+        elif base_currency:
+            # Only base currency
+            result["currencies"].append(result["base_currency"])
+        
+        return result
 
     def get_multi_currency_rates(self):
         """
@@ -138,3 +236,4 @@ class PosConfig(models.Model):
                 stats[cid]["manually_edited_count"] += 1
 
         return {"statistics": list(stats.values()), "session_id": session_id}
+    

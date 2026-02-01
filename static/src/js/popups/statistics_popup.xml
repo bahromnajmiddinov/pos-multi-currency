@@ -1,33 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
-    <t t-name="point_of_sale.StatisticsPopup">
-        <div class="popup-root">
-            <div class="popup statistics-popup">
-
-                <div class="top-content">
-                    <h2 class="popup-title">
-                        <i class="fa fa-bar-chart me-2"/>
-                        Multi-Currency Statistics
-                    </h2>
-                    <div class="popup-subtitle text-muted">
-                        Current session summary
-                    </div>
-                </div>
-
-                <!-- loading state -->
-                <div class="stats-loading" t-if="state.loading">
+    <t t-name="pos_multi.StatisticsPopup">
+        <!-- CRITICAL: Must wrap in Dialog component! -->
+        <Dialog title="'Multi-Currency Statistics'">
+            <div class="statistics-popup-content">
+                
+                <!-- Loading state -->
+                <div class="stats-loading text-center py-4" t-if="state.loading">
                     <i class="fa fa-spinner fa-spin me-2"/>
                     Loading…
                 </div>
 
-                <!-- empty state -->
-                <div class="stats-empty" t-if="!state.loading and state.rows.length === 0">
+                <!-- Empty state -->
+                <div class="stats-empty text-center py-4 text-muted" t-if="!state.loading and state.rows.length === 0">
                     <i class="fa fa-info-circle me-2"/>
                     No multi-currency payments in this session yet.
                 </div>
 
-                <!-- data table -->
+                <!-- Data table -->
                 <div class="stats-table-wrap" t-if="!state.loading and state.rows.length > 0">
                     <table class="table table-sm stats-table">
                         <thead>
@@ -58,7 +49,7 @@
                             </t>
                         </tbody>
                         <tfoot>
-                            <tr class="stats-totals">
+                            <tr class="stats-totals fw-bold">
                                 <td><strong>Totals</strong></td>
                                 <td class="text-end">—</td>
                                 <td class="text-end stats-amount"><t t-esc="grandTotalBase"/></td>
@@ -69,13 +60,15 @@
                     </table>
                 </div>
 
-                <div class="bottom-buttons">
-                    <button class="button discard btn btn-secondary btn-lg" t-on-click="onClose">
-                        Close
-                    </button>
-                </div>
             </div>
-        </div>
+
+            <!-- Footer with Close button -->
+            <t t-set-slot="footer">
+                <button class="btn btn-secondary" t-on-click="onClose">
+                    Close
+                </button>
+            </t>
+        </Dialog>
     </t>
 
 </templates>

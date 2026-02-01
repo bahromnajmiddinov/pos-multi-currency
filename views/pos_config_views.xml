@@ -24,6 +24,8 @@
                             <field name="multi_currency_ids"
                                 widget="many2many_tags"/>
 
+                            <label for="multi_currency_allow_rate_edit"
+                                   class="mt8 mb0 d-block"/>
                             <field name="multi_currency_allow_rate_edit"/>
 
                         </div>

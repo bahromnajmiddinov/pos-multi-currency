@@ -1,6 +1,7 @@
 /** @odoo-module */
 
 import { Component, useState, onMounted } from "@odoo/owl";
+import { Dialog } from "@web/core/dialog/dialog";
 import { usePos } from "@point_of_sale/app/hooks/pos_hook";
 import { formatMCAmount } from "@pos_multi/js/utils/currency_utils";
 
@@ -8,34 +9,29 @@ import { formatMCAmount } from "@pos_multi/js/utils/currency_utils";
  * StatisticsPopup
  *
  * Shows a per-currency breakdown for the current POS session.
- * Data is fetched from the backend via the
- *   /pos/multi_currency/statistics
- * JSON-RPC endpoint defined in controllers/pos_controller.py.
- *
- * Props:
- *   - pos       {Object}   The PosStore service (passed explicitly so the
- *                           popup can run outside the normal POS component tree)
- *   - onClose   {Function} (optional) dismiss callback; falls back to
- *                           resolving the makeAwaitable promise.
+ * 
+ * CRITICAL: Must use Dialog component wrapper for popup to show!
  */
 export class StatisticsPopup extends Component {
-    static template = "point_of_sale.StatisticsPopup";
+    static template = "pos_multi.StatisticsPopup";
+    static components = { Dialog };
+    
     static props = {
         pos: { type: Object, optional: true },
-        onClose: { type: Function, optional: true },
+        close: { type: Function, optional: true },
+        getPayload: { type: Function, optional: true },
     };
 
     setup() {
         this.pos = this.props.pos || usePos();
+        
         this.state = useState({
             loading: true,
-            rows: [],        // enriched row objects
+            rows: [],
         });
 
         onMounted(() => this.load());
     }
-
-    // ─── data ───────────────────────────────────────────────────────
 
     async load() {
         this.state.loading = true;
@@ -46,7 +42,6 @@ export class StatisticsPopup extends Component {
                 return;
             }
 
-            // Call the backend controller
             const result = await this.pos.data.call(
                 "pos.config",
                 "get_multi_currency_statistics",
@@ -55,7 +50,6 @@ export class StatisticsPopup extends Component {
 
             const stats = result?.statistics || [];
 
-            // Enrich each row with formatted amounts
             this.state.rows = stats.map((row) => {
                 const cur = this.pos.models["res.currency"]?.get?.(row.currency_id);
                 return {
@@ -75,8 +69,6 @@ export class StatisticsPopup extends Component {
         }
     }
 
-    // ─── computed totals ────────────────────────────────────────────
-
     get grandTotalBase() {
         const sum = this.state.rows.reduce((a, r) => a + (r.total_base_amount || 0), 0);
         return formatMCAmount(sum, this.pos.multiCurrency?.baseCurrency);
@@ -90,11 +82,12 @@ export class StatisticsPopup extends Component {
         return this.state.rows.reduce((a, r) => a + (r.manually_edited_count || 0), 0);
     }
 
-    // ─── actions ────────────────────────────────────────────────────
-
     onClose() {
-        if (this.props.onClose) {
-            this.props.onClose();
+        if (this.props.getPayload) {
+            this.props.getPayload(null);
+        }
+        if (this.props.close) {
+            this.props.close();
         }
     }
 }

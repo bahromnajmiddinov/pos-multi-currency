@@ -1,7 +1,7 @@
 /** @odoo-module */
 
 import { Component, useState } from "@odoo/owl";
-import { useService } from "@web/core/utils/hooks";
+import { Dialog } from "@web/core/dialog/dialog";
 import { usePos } from "@point_of_sale/app/hooks/pos_hook";
 import {
     getEffectiveRate,
@@ -10,28 +10,16 @@ import {
     validateRate,
 } from "@pos_multi/js/utils/currency_utils";
 
-/**
- * CurrencySelectionPopup
- *
- * Displayed after the cashier selects a payment method when multi-currency
- * is active.  Shows a grid of available currencies, previews the converted
- * amount, and optionally allows manual rate editing.
- *
- * Props:
- *   - title          {string}   Popup heading
- *   - subtitle       {string}   Sub-heading
- *   - orderAmount    {number}   The base-currency amount to convert (for preview)
- *   - onSelect       {fn}       Callback({ currency, rate, manuallyEdited })
- *   - onCancel       {fn}       Callback when user cancels
- */
 export class CurrencySelectionPopup extends Component {
-    static template = "point_of_sale.CurrencySelectionPopup";
+    static template = "pos_multi.CurrencySelectionPopup";
+    static components = { Dialog };
+    
     static props = {
         title: { type: String, optional: true },
         subtitle: { type: String, optional: true },
         orderAmount: { type: Number, optional: true, default: 0 },
-        onSelect: { type: Function },
-        onCancel: { type: Function },
+        close: { type: Function, optional: true },
+        getPayload: { type: Function, optional: true },
     };
 
     setup() {
@@ -44,9 +32,14 @@ export class CurrencySelectionPopup extends Component {
             rateWarning: null,
             isManuallyEdited: false,
         });
-    }
 
-    // ─── Getters ────────────────────────────────────────────────────
+        // Bind methods
+        this.selectCurrency = this.selectCurrency.bind(this);
+        this.onRateInput = this.onRateInput.bind(this);
+        this.resetRate = this.resetRate.bind(this);
+        this.onCancel = this.onCancel.bind(this);
+        this.onConfirm = this.onConfirm.bind(this);
+    }
 
     get currencies() {
         return this.mc?.allowedCurrencies || [];
@@ -56,36 +49,35 @@ export class CurrencySelectionPopup extends Component {
         return this.mc?.baseCurrencyId;
     }
 
+    get baseCurrency() {
+        return this.mc?.baseCurrency;
+    }
+
     get baseCurrencyName() {
-        return this.mc?.baseCurrency?.name || "";
+        return this.baseCurrency?.name || "";
     }
 
     get selectedCurrencyId() {
         return this.state.selectedCurrencyId;
     }
 
+    get selectedCurrency() {
+        return this.currencies.find((c) => c.id === this.state.selectedCurrencyId);
+    }
+
     get selectedCurrencyName() {
-        const cur = this.currencies.find((c) => c.id === this.state.selectedCurrencyId);
-        return cur?.name || "";
+        return this.selectedCurrency?.name || "";
     }
 
     get canEditRate() {
         return this.mc?.canEditRate || false;
     }
 
-    get manualRate() {
-        return this.state.manualRate;
+    get showRateEdit() {
+        return this.canEditRate && 
+               this.state.selectedCurrencyId && 
+               this.state.selectedCurrencyId !== this.baseCurrencyId;
     }
-
-    set manualRate(val) {
-        this.state.manualRate = val;
-    }
-
-    get rateWarning() {
-        return this.state.rateWarning;
-    }
-
-    // ─── Helpers ────────────────────────────────────────────────────
 
     formatRate(currencyId) {
         const rate = getEffectiveRate(
@@ -94,7 +86,7 @@ export class CurrencySelectionPopup extends Component {
             this.mc?.rates || {},
             this.baseCurrencyId
         );
-        return roundTo(rate, 4).toFixed(4);
+        return roundTo(rate, 6).toFixed(6);
     }
 
     previewAmount(currency) {
@@ -124,11 +116,8 @@ export class CurrencySelectionPopup extends Component {
         );
     }
 
-    // ─── Event handlers ─────────────────────────────────────────────
-
     selectCurrency(currency) {
         this.state.selectedCurrencyId = currency.id;
-        // Reset manual rate to market rate for the newly selected currency
         const marketRate = getEffectiveRate(
             this.baseCurrencyId,
             currency.id,
@@ -160,13 +149,18 @@ export class CurrencySelectionPopup extends Component {
     }
 
     onCancel() {
-        this.props.onCancel();
+        if (this.props.getPayload) {
+            this.props.getPayload(null);
+        }
+        if (this.props.close) {
+            this.props.close();
+        }
     }
 
     onConfirm() {
         if (!this.state.selectedCurrencyId) return;
 
-        const currency = this.currencies.find((c) => c.id === this.state.selectedCurrencyId);
+        const currency = this.selectedCurrency;
         if (!currency) return;
 
         let rate;
@@ -186,10 +180,17 @@ export class CurrencySelectionPopup extends Component {
             );
         }
 
-        this.props.onSelect({
+        const result = {
             currency,
             rate: roundTo(rate, 6),
             manuallyEdited,
-        });
+        };
+
+        if (this.props.getPayload) {
+            this.props.getPayload(result);
+        }
+        if (this.props.close) {
+            this.props.close();
+        }
     }
 }

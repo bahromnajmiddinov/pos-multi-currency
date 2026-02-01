@@ -13,6 +13,8 @@ export class PosMultiCurrencyService {
         this._allowRateEdit = false;
         this._canEditRate = false;
         this._allowedCurrencyIds = [];
+        this.currencies = []; // Store currencies from RPC
+        this._baseCurrency = null; // Store base currency from RPC
         this.rates = {};
         this.baseCurrencyId = null;
         this.sessionEnabled = true;
@@ -21,15 +23,49 @@ export class PosMultiCurrencyService {
 
     async init() {
         const config = this.pos.config;
-        this._configEnabled = !!config.multi_currency_enabled;
-        this._allowRateEdit = !!config.multi_currency_allow_rate_edit;
-        this._canEditRate = !!config.multi_currency_can_edit_rate;
-        this._allowedCurrencyIds = config.multi_currency_ids || [];
-        this.baseCurrencyId = config.currency_id?.id || null;
+        
+        try {
+            // Fetch multi-currency configuration via RPC
+            const mcConfig = await this.pos.data.call(
+                "pos.config",
+                "get_multi_currency_config",
+                [[config.id]]
+            );
+            
+            console.log("Multi-currency config from RPC:", mcConfig);
+            
+            this._configEnabled = mcConfig.enabled;
+            this._allowRateEdit = mcConfig.allow_rate_edit;
+            this._canEditRate = mcConfig.can_edit_rate;
+            
+            // Store currencies from RPC response
+            this.currencies = mcConfig.currencies || [];
+            this._baseCurrency = mcConfig.base_currency;
+            this.baseCurrencyId = this._baseCurrency?.id || null;
+            
+            // Extract allowed currency IDs
+            this._allowedCurrencyIds = this.currencies.map(c => c.id);
+            
+            console.log("Multi-currency allowed IDs:", this._allowedCurrencyIds);
+            console.log("Available currencies:", this.currencies);
+            
+            // Build initial rates from currencies
+            this.rates = {};
+            this.currencies.forEach(curr => {
+                this.rates[curr.id] = curr.rate || 1.0;
+            });
+            
+        } catch (error) {
+            console.error("Failed to load multi-currency config:", error);
+            this._configEnabled = false;
+            this._allowedCurrencyIds = [];
+            this.currencies = [];
+        }
 
         if (this._configEnabled) {
             await this.refreshRates();
         }
+        
         this._initialized = true;
     }
 
@@ -46,13 +82,13 @@ export class PosMultiCurrencyService {
     }
 
     get allowedCurrencies() {
-        const allCurrencies = this.pos.models["res.currency"]?.getAll?.() || [];
-        const ids = new Set([this.baseCurrencyId, ...this._allowedCurrencyIds]);
-        return allCurrencies.filter((c) => ids.has(c.id));
+        // Return currencies from our stored data instead of trying to fetch from pos.models
+        return this.currencies || [];
     }
 
     get baseCurrency() {
-        return this.pos.models["res.currency"]?.get?.(this.baseCurrencyId) || null;
+        // Return base currency from our stored data
+        return this._baseCurrency || null;
     }
 
     setSessionEnabled(enabled) {
@@ -69,17 +105,21 @@ export class PosMultiCurrencyService {
             if (result && result.rates) {
                 this.rates = result.rates;
                 this.baseCurrencyId = result.base_currency_id || this.baseCurrencyId;
+                console.log("Refreshed rates:", this.rates);
             }
         } catch (e) {
+            console.error("Failed to refresh rates:", e);
             this._buildLocalRates();
         }
     }
 
     _buildLocalRates() {
-        const currencies = this.pos.models["res.currency"]?.getAll?.() || [];
-        for (const cur of currencies) {
-            this.rates[cur.id] = cur.rate || 1.0;
-        }
+        // Use our stored currencies instead of pos.models
+        this.rates = {};
+        this.currencies.forEach(curr => {
+            this.rates[curr.id] = curr.rate || 1.0;
+        });
+        console.log("Built local rates:", this.rates);
     }
 }
 

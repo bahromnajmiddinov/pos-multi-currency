@@ -1,89 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
-    <t t-name="point_of_sale.RateEditPopup">
-        <div class="popup-root">
-            <div class="popup rate-edit-popup">
-                <div class="top-content">
-                    <h2 class="popup-title">
-                        <i class="fa fa-exchange me-2" />
-                        <t t-esc="props.title || 'Edit Exchange Rate'" />
-                    </h2>
-                </div>
-
-                <div class="rate-info-block">
-                    <div class="rate-info-row">
-                        <span class="rate-info-label">Base Currency</span>
-                        <span class="rate-info-value"><t t-esc="baseCurrencyName" /></span>
+    <t t-name="pos_multi.RateEditPopup">
+        <Dialog title="'Edit Exchange Rate'" size="'md'">
+            <div class="mc-rate-edit-content">
+                
+                <!-- Rate Info -->
+                <div class="mc-info-section">
+                    <div class="mc-info-row">
+                        <span class="mc-info-label">Base Currency:</span>
+                        <span class="mc-info-value"><t t-esc="baseCurrencyName" /></span>
                     </div>
-                    <div class="rate-info-row">
-                        <span class="rate-info-label">Payment Currency</span>
-                        <span class="rate-info-value"><t t-esc="paymentCurrencyName" /></span>
+                    <div class="mc-info-row">
+                        <span class="mc-info-label">Payment Currency:</span>
+                        <span class="mc-info-value"><t t-esc="paymentCurrencyName" /></span>
                     </div>
-                    <div class="rate-info-row">
-                        <span class="rate-info-label">Market Rate</span>
-                        <span class="rate-info-value market-rate">
+                    <div class="mc-info-row">
+                        <span class="mc-info-label">Market Rate:</span>
+                        <span class="mc-info-value mc-market">
                             1 <t t-esc="baseCurrencyName" /> = <t t-esc="marketRateFormatted" /> <t t-esc="paymentCurrencyName" />
                         </span>
                     </div>
                 </div>
 
-                <div class="rate-input-block">
-                    <label class="rate-input-label">
+                <!-- Rate Input -->
+                <div class="mc-input-section">
+                    <label class="mc-input-label">
                         1 <t t-esc="baseCurrencyName" /> =
                     </label>
-                    <div class="rate-input-row">
+                    <div class="mc-input-row">
                         <input
                             type="number"
-                            class="form-control rate-input"
+                            class="mc-rate-input"
                             t-model.number="state.editedRate"
                             step="0.000001"
                             min="0.000001"
                             t-on-input="onRateChange"
                         />
-                        <span class="rate-input-currency"><t t-esc="paymentCurrencyName" /></span>
+                        <span class="mc-currency-label"><t t-esc="paymentCurrencyName" /></span>
+                        <button class="mc-reset" t-on-click="resetToMarket">
+                            <i class="fa fa-undo" />
+                        </button>
                     </div>
-                    <button class="btn btn-sm btn-link reset-btn" t-on-click="resetToMarket">
-                        <i class="fa fa-undo me-1" /> Reset to market rate
-                    </button>
                 </div>
 
-                <!-- Live conversion preview -->
-                <div class="conversion-preview" t-if="props.orderAmount">
-                    <div class="preview-row">
-                        <span class="preview-label">Order amount:</span>
-                        <span class="preview-value">
-                            <t t-esc="formatAmount(props.orderAmount, baseCurrency)" />
-                        </span>
+                <!-- Preview -->
+                <div class="mc-preview-section" t-if="props.orderAmount">
+                    <div class="mc-preview-row">
+                        <span>Order Amount:</span>
+                        <span><t t-esc="formatAmount(props.orderAmount, baseCurrency)" /></span>
                     </div>
-                    <div class="preview-row converted">
-                        <span class="preview-label">Converted:</span>
-                        <span class="preview-value">
-                            <t t-esc="convertedAmountFormatted" />
-                        </span>
+                    <div class="mc-preview-row mc-converted">
+                        <span>Converted:</span>
+                        <span><t t-esc="convertedAmountFormatted" /></span>
                     </div>
                 </div>
 
                 <!-- Warning -->
-                <div class="rate-warning" t-if="state.warning">
-                    <i class="fa fa-exclamation-triangle me-1" />
+                <div class="mc-warning" t-if="state.warning">
+                    <i class="fa fa-exclamation-triangle" />
                     <t t-esc="state.warning" />
                 </div>
 
-                <div class="bottom-buttons">
-                    <button class="button discard btn btn-secondary btn-lg" t-on-click="onCancel">
+            </div>
+
+            <t t-set-slot="footer">
+                <div class="mc-footer">
+                    <button class="mc-btn mc-btn-cancel" t-on-click="onCancel">
                         Cancel
                     </button>
                     <button
-                        class="button confirm btn btn-primary btn-lg"
-                        t-att-class="{ 'disabled': !!state.warning }"
+                        class="mc-btn mc-btn-confirm"
+                        t-att-class="{ 'disabled': state.warning }"
                         t-on-click="onConfirm"
                     >
-                        <i class="fa fa-check me-1" /> Apply Rate
+                        <span>Apply Rate</span>
+                        <i class="fa fa-check" />
                     </button>
                 </div>
-            </div>
-        </div>
+            </t>
+        </Dialog>
     </t>
 
 </templates>

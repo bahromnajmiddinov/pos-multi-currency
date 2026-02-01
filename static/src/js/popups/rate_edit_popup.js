@@ -1,63 +1,54 @@
 /** @odoo-module */
 
 import { Component, useState } from "@odoo/owl";
+import { Dialog } from "@web/core/dialog/dialog";
 import { usePos } from "@point_of_sale/app/hooks/pos_hook";
-import {
-    roundTo,
-    formatMCAmount,
-    validateRate,
-} from "@pos_multi/js/utils/currency_utils";
+import { formatMCAmount, roundTo, validateRate } from "@pos_multi/js/utils/currency_utils";
 
-/**
- * RateEditPopup
- *
- * Standalone popup for editing the exchange rate on an already-selected
- * payment line.  Launched from the "Edit Rate" button on the payment line
- * detail view.
- *
- * Props:
- *   - title            {string}
- *   - baseCurrencyId   {number}
- *   - paymentCurrency  {Object}   The payment currency record
- *   - marketRate       {number}   System rate (1 base = ? payment)
- *   - currentRate      {number}   Current rate on the line
- *   - orderAmount      {number}   Base-currency order amount (for preview)
- *   - onConfirm        {fn}       Callback(newRate)
- *   - onCancel         {fn}
- */
 export class RateEditPopup extends Component {
-    static template = "point_of_sale.RateEditPopup";
+    static template = "pos_multi.RateEditPopup";
+    static components = { Dialog };
+    
     static props = {
-        title: { type: String, optional: true },
-        baseCurrencyId: { type: Number },
-        paymentCurrency: { type: Object },
-        marketRate: { type: Number, default: 1.0 },
-        currentRate: { type: Number, default: 1.0 },
-        orderAmount: { type: Number, optional: true, default: 0 },
-        onConfirm: { type: Function },
-        onCancel: { type: Function },
+        baseCurrencyId: Number,
+        paymentCurrency: Object,
+        marketRate: Number,
+        currentRate: Number,
+        orderAmount: { type: Number, optional: true },
+        close: { type: Function, optional: true },
+        getPayload: { type: Function, optional: true },
     };
 
     setup() {
         this.pos = usePos();
+        this.mc = this.pos.multiCurrency;
+
         this.state = useState({
-            editedRate: this.props.currentRate,
+            editedRate: this.props.currentRate || this.props.marketRate,
             warning: null,
         });
+
+        // Bind methods
+        this.onRateChange = this.onRateChange.bind(this);
+        this.resetToMarket = this.resetToMarket.bind(this);
+        this.onCancel = this.onCancel.bind(this);
+        this.onConfirm = this.onConfirm.bind(this);
     }
 
-    // ─── Getters ────────────────────────────────────────────────────
-
     get baseCurrency() {
-        return this.pos.models["res.currency"]?.get?.(this.props.baseCurrencyId) || null;
+        return this.mc?.baseCurrency;
     }
 
     get baseCurrencyName() {
         return this.baseCurrency?.name || "";
     }
 
+    get paymentCurrency() {
+        return this.props.paymentCurrency;
+    }
+
     get paymentCurrencyName() {
-        return this.props.paymentCurrency?.name || "";
+        return this.paymentCurrency?.name || "";
     }
 
     get marketRateFormatted() {
@@ -65,17 +56,13 @@ export class RateEditPopup extends Component {
     }
 
     get convertedAmountFormatted() {
-        const converted = (this.props.orderAmount || 0) * (this.state.editedRate || 1);
-        return formatMCAmount(converted, this.props.paymentCurrency);
+        const converted = this.props.orderAmount * this.state.editedRate;
+        return formatMCAmount(converted, this.paymentCurrency);
     }
-
-    // ─── Helpers ────────────────────────────────────────────────────
 
     formatAmount(amount, currency) {
         return formatMCAmount(amount, currency);
     }
-
-    // ─── Handlers ───────────────────────────────────────────────────
 
     onRateChange() {
         const val = parseFloat(this.state.editedRate);
@@ -93,14 +80,23 @@ export class RateEditPopup extends Component {
     }
 
     onCancel() {
-        this.props.onCancel();
+        if (this.props.getPayload) {
+            this.props.getPayload(null);
+        }
+        if (this.props.close) {
+            this.props.close();
+        }
     }
 
     onConfirm() {
         if (this.state.warning) return;
-        const val = parseFloat(this.state.editedRate);
-        if (val && val > 0) {
-            this.props.onConfirm(roundTo(val, 6));
+
+        const rate = parseFloat(this.state.editedRate);
+        if (this.props.getPayload) {
+            this.props.getPayload(rate);
+        }
+        if (this.props.close) {
+            this.props.close();
         }
     }
 }
