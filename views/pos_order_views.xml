@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             POS ORDER LIST VIEW - Add multi-currency columns
+             ═══════════════════════════════════════════════════════════ -->
+        <record id="pos_multi_currency_order_list" model="ir.ui.view">
+            <field name="name">pos.order.multi_currency.list</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='amount_total']" position="after">
+                    <!-- Multi-currency indicator badge -->
+                    <field name="has_foreign_payments" 
+                           widget="boolean_toggle" 
+                           optional="show"
+                           string="MC"/>
+                    
+                    <!-- Number of foreign currencies used -->
+                    <field name="foreign_currency_count" 
+                           optional="hide"
+                           string="Currencies"/>
+                    
+                    <!-- Total foreign amount in base currency -->
+                    <field name="total_foreign_amount" 
+                           optional="hide"
+                           widget="monetary"
+                           string="Foreign Total"/>
+                    
+                    <!-- Number of manually edited rates -->
+                    <field name="manual_rate_count" 
+                           optional="hide"
+                           string="Manual Rates"
+                           decoration-warning="manual_rate_count > 0"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             POS ORDER FORM VIEW - Multi-currency details section
+             ═══════════════════════════════════════════════════════════ -->
+        <record id="pos_multi_currency_order_form" model="ir.ui.view">
+            <field name="name">pos.order.multi_currency.form</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                
+                <!-- Add multi-currency stats after payment lines -->
+                <xpath expr="//page[@name='payments']" position="after">
+                    <page name="multi_currency" 
+                          string="Multi-Currency Details" 
+                          invisible="not has_foreign_payments">
+                        
+                        <!-- Summary Statistics -->
+                        <group string="Summary Statistics">
+                            <group>
+                                <field name="has_foreign_payments" readonly="1"/>
+                                <field name="foreign_currency_count" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="total_foreign_amount" readonly="1"/>
+                                <field name="manual_rate_count" readonly="1"/>
+                            </group>
+                        </group>
+
+                        <!-- Detailed Breakdown by Currency -->
+                        <group string="Breakdown by Currency" invisible="not foreign_currency_details">
+                            
+                            <!-- Display as formatted table using a custom widget -->
+                            <div class="o_multi_currency_breakdown_table">
+                                <table class="table table-sm table-bordered table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Currency</th>
+                                            <th class="text-end">Foreign Amount</th>
+                                            <th class="text-end">Base Amount</th>
+                                            <th class="text-end">Avg. Rate</th>
+                                            <th class="text-end">Payments</th>
+                                            <th class="text-end">Manual Edits</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Note: This is a simplified display. The actual JSON data
+                                             will be shown in the JSON widget below for full details -->
+                                        <tr>
+                                            <td colspan="6" class="text-center text-muted">
+                                                See JSON field below for detailed breakdown
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Raw JSON view for full details -->
+                            <field name="foreign_currency_details" 
+                                   widget="ace" 
+                                   options="{'mode': 'json'}"
+                                   readonly="1"
+                                   nolabel="1"/>
+                        </group>
+
+                    </page>
+                </xpath>
+
+                <!-- Add smart buttons in button_box -->
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_view_foreign_currency_details"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-globe"
+                            invisible="not has_foreign_payments"
+                            context="{'default_pos_order_id': id}">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="foreign_currency_count" widget="integer"/>
+                            </span>
+                            <span class="o_stat_text">Currencies</span>
+                        </div>
+                    </button>
+
+                    <button name="action_view_foreign_currency_details"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-money"
+                            invisible="not has_foreign_payments"
+                            context="{'default_pos_order_id': id}">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="total_foreign_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            </span>
+                            <span class="o_stat_text">Foreign Total</span>
+                        </div>
+                    </button>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             POS ORDER SEARCH VIEW - Multi-currency filters
+             ═══════════════════════════════════════════════════════════ -->
+        <record id="pos_multi_currency_order_search" model="ir.ui.view">
+            <field name="name">pos.order.multi_currency.search</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_order_filter"/>
+            <field name="arch" type="xml">
+                
+                <!-- Add filters -->
+                <xpath expr="//filter[@name='invoiced']" position="after">
+                    <separator/>
+                    <filter name="foreign_payments" 
+                            string="Foreign Currency Payments"
+                            domain="[('has_foreign_payments', '=', True)]"/>
+                    <filter name="manual_rates" 
+                            string="Manual Rate Edits"
+                            domain="[('manual_rate_count', '>', 0)]"/>
+                </xpath>
+
+                <!-- Add group by -->
+                <xpath expr="//group" position="inside">
+                    <filter name="group_by_foreign_currency_count" 
+                            string="Currency Count"
+                            context="{'group_by': 'foreign_currency_count'}"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             MULTI-CURRENCY DASHBOARD - Overview of all MC transactions
+             ═══════════════════════════════════════════════════════════ -->
+        <record id="pos_multi_currency_dashboard_action" model="ir.actions.act_window">
+            <field name="name">Multi-Currency Dashboard</field>
+            <field name="res_model">pos.order</field>
+            <field name="view_mode">graph,pivot,list,form</field>
+            <field name="domain">[('has_foreign_payments', '=', True)]</field>
+            <field name="context">{
+                'search_default_foreign_payments': 1,
+            }</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No multi-currency orders yet
+                </p>
+                <p>
+                    Orders with foreign currency payments will appear here.
+                </p>
+            </field>
+        </record>
+
+        <!-- Dashboard graph view -->
+        <record id="pos_multi_currency_order_graph" model="ir.ui.view">
+            <field name="name">pos.order.multi_currency.graph</field>
+            <field name="model">pos.order</field>
+            <field name="arch" type="xml">
+                <graph string="Multi-Currency Analysis" type="bar" stacked="1">
+                    <field name="date_order" type="row" interval="day"/>
+                    <field name="foreign_currency_count" type="col"/>
+                    <field name="total_foreign_amount" type="measure"/>
+                    <field name="amount_total" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Dashboard pivot view -->
+        <record id="pos_multi_currency_order_pivot" model="ir.ui.view">
+            <field name="name">pos.order.multi_currency.pivot</field>
+            <field name="model">pos.order</field>
+            <field name="arch" type="xml">
+                <pivot string="Multi-Currency Pivot">
+                    <field name="config_id" type="row"/>
+                    <field name="foreign_currency_count" type="col"/>
+                    <field name="total_foreign_amount" type="measure"/>
+                    <field name="amount_total" type="measure"/>
+                    <field name="manual_rate_count" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- Add menu item for dashboard -->
+        <menuitem id="menu_pos_multi_currency_dashboard"
+                  name="Multi-Currency"
+                  parent="point_of_sale.menu_point_of_sale"
+                  action="pos_multi_currency_dashboard_action"
+                  sequence="20"/>
+
+    </data>
+</odoo>

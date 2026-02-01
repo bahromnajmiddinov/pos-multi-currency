@@ -2,7 +2,7 @@
 <odoo>
     <data>
 
-        <!-- ═══ pos.payment form: show multi-currency fields ═══ -->
+         <!-- ═══ pos.payment form: show multi-currency fields ═══ -->
         <record id="pos_multi_currency_payment_view" model="ir.ui.view">
             <field name="name">pos.payment.multi_currency.form</field>
             <field name="model">pos.payment</field>
@@ -33,6 +33,213 @@
                 </xpath>
             </field>
         </record>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             POS PAYMENT ENHANCED LIST VIEW - Multi-currency focus
+             ═══════════════════════════════════════════════════════════ -->
+        <record id="pos_payment_multi_currency_tree_enhanced" model="ir.ui.view">
+            <field name="name">pos.payment.multi_currency.tree.enhanced</field>
+            <field name="model">pos.payment</field>
+            <field name="arch" type="xml">
+                <list string="Multi-Currency Payments" 
+                      decoration-info="payment_currency_id != False"
+                      decoration-warning="rate_manually_edited == True">
+                    
+                    <field name="pos_order_id"/>
+                    <field name="session_id"/>
+                    <field name="payment_date"/>
+                    <field name="payment_method_id"/>
+                    
+                    <!-- Base amount -->
+                    <field name="amount" 
+                           string="Base Amount"
+                           widget="monetary"
+                           sum="Total"/>
+                    
+                    <!-- Foreign currency fields -->
+                    <field name="payment_currency_id" 
+                           string="Currency"
+                           optional="show"/>
+                    <field name="payment_currency_amount" 
+                           string="Foreign Amount"
+                           optional="show"
+                           sum="Total Foreign"/>
+                    <field name="exchange_rate" 
+                           string="Rate"
+                           optional="show"
+                           widget="float"
+                           digits="[16,6]"/>
+                    <field name="rate_manually_edited" 
+                           string="Manual"
+                           widget="boolean"
+                           optional="show"/>
+                    
+                    <!-- Additional info -->
+                    <field name="partner_id" optional="hide"/>
+                    <field name="card_type" optional="hide"/>
+                    
+                </list>
+            </field>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             POS PAYMENT SEARCH VIEW - Enhanced filtering
+             ═══════════════════════════════════════════════════════════ -->
+        <record id="pos_payment_multi_currency_search_enhanced" model="ir.ui.view">
+            <field name="name">pos.payment.multi_currency.search.enhanced</field>
+            <field name="model">pos.payment</field>
+            <field name="arch" type="xml">
+                <search string="Payment Search">
+                    
+                    <!-- Search fields -->
+                    <field name="pos_order_id"/>
+                    <field name="session_id"/>
+                    <field name="payment_method_id"/>
+                    <field name="payment_currency_id"/>
+                    <field name="partner_id"/>
+                    
+                    <!-- Filters -->
+                    <filter name="foreign_currency_only" 
+                            string="Foreign Currency Only"
+                            domain="[('payment_currency_id', '!=', False)]"/>
+                    
+                    <filter name="manual_rates_only" 
+                            string="Manual Rates Only"
+                            domain="[('rate_manually_edited', '=', True)]"/>
+                    
+                    <separator/>
+                    
+                    <filter name="today" 
+                            string="Today"
+                            domain="[('payment_date', '&gt;=', datetime.datetime.now().replace(hour=0, minute=0, second=0))]"/>
+                    
+                    <filter name="this_week" 
+                            string="This Week"
+                            domain="[('payment_date', '&gt;=', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                    
+                    <filter name="this_month" 
+                            string="This Month"
+                            domain="[('payment_date', '&gt;=', (context_today() - datetime.timedelta(days=30)).strftime('%Y-%m-%d'))]"/>
+                    
+                    <!-- Group By -->
+                    <group>
+                        <filter name="group_by_currency" 
+                                string="Currency"
+                                context="{'group_by': 'payment_currency_id'}"/>
+                        
+                        <filter name="group_by_session" 
+                                string="Session"
+                                context="{'group_by': 'session_id'}"/>
+                        
+                        <filter name="group_by_method" 
+                                string="Payment Method"
+                                context="{'group_by': 'payment_method_id'}"/>
+                        
+                        <filter name="group_by_date" 
+                                string="Payment Date"
+                                context="{'group_by': 'payment_date:day'}"/>
+                        
+                        <filter name="group_by_manual_edit" 
+                                string="Manual Edit"
+                                context="{'group_by': 'rate_manually_edited'}"/>
+                    </group>
+                    
+                </search>
+            </field>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             POS PAYMENT GRAPH VIEW - Multi-currency analysis
+             ═══════════════════════════════════════════════════════════ -->
+        <record id="pos_payment_multi_currency_graph" model="ir.ui.view">
+            <field name="name">pos.payment.multi_currency.graph</field>
+            <field name="model">pos.payment</field>
+            <field name="arch" type="xml">
+                <graph string="Payment Analysis" type="bar" stacked="1">
+                    <field name="payment_date" type="row" interval="day"/>
+                    <field name="payment_currency_id" type="col"/>
+                    <field name="amount" type="measure"/>
+                    <field name="payment_currency_amount" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             POS PAYMENT PIVOT VIEW - Multi-currency pivot
+             ═══════════════════════════════════════════════════════════ -->
+        <record id="pos_payment_multi_currency_pivot" model="ir.ui.view">
+            <field name="name">pos.payment.multi_currency.pivot</field>
+            <field name="model">pos.payment</field>
+            <field name="arch" type="xml">
+                <pivot string="Payment Pivot">
+                    <field name="payment_currency_id" type="row"/>
+                    <field name="session_id" type="col"/>
+                    <field name="amount" type="measure"/>
+                    <field name="payment_currency_amount" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             MULTI-CURRENCY PAYMENTS ACTION - Dedicated dashboard
+             ═══════════════════════════════════════════════════════════ -->
+        <record id="action_pos_payment_multi_currency" model="ir.actions.act_window">
+            <field name="name">Multi-Currency Payments</field>
+            <field name="res_model">pos.payment</field>
+            <field name="view_mode">list,graph,pivot,form</field>
+            <field name="domain">[('payment_currency_id', '!=', False)]</field>
+            <field name="context">{
+                'search_default_group_by_currency': 1,
+            }</field>
+            <field name="view_ids" 
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'list', 'view_id': ref('pos_payment_multi_currency_tree_enhanced')}),
+                          (0, 0, {'view_mode': 'graph', 'view_id': ref('pos_payment_multi_currency_graph')}),
+                          (0, 0, {'view_mode': 'pivot', 'view_id': ref('pos_payment_multi_currency_pivot')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('pos_multi_currency_payment_view')})]"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No multi-currency payments yet
+                </p>
+                <p>
+                    Payments made in foreign currencies will appear here.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_pos_payment_multi_currency"
+                  name="Payments (Multi-Currency)"
+                  parent="point_of_sale.menu_point_of_sale"
+                  action="action_pos_payment_multi_currency"
+                  sequence="22"/>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             MANUAL RATE EDITS - Special view for auditing
+             ═══════════════════════════════════════════════════════════ -->
+        <record id="action_pos_payment_manual_rates" model="ir.actions.act_window">
+            <field name="name">Manual Rate Edits</field>
+            <field name="res_model">pos.payment</field>
+            <field name="view_mode">list,form</field>
+            <field name="domain">[('rate_manually_edited', '=', True)]</field>
+            <field name="context">{
+                'search_default_group_by_session': 1,
+            }</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No manual rate edits
+                </p>
+                <p>
+                    Payments with manually edited exchange rates will appear here for audit purposes.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_pos_payment_manual_rates"
+                  name="Manual Rate Edits"
+                  parent="point_of_sale.menu_point_of_sale"
+                  action="action_pos_payment_manual_rates"
+                  sequence="23"
+                  groups="base.group_system"/>
 
     </data>
 </odoo>

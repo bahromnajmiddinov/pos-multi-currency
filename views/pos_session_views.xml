@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             POS SESSION LIST VIEW - Add multi-currency columns
+             ═══════════════════════════════════════════════════════════ -->
+        <record id="pos_multi_currency_session_list" model="ir.ui.view">
+            <field name="name">pos.session.multi_currency.list</field>
+            <field name="model">pos.session</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_session_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='cash_register_balance_end']" position="after">
+                    <!-- Multi-currency indicator -->
+                    <field name="has_foreign_payments" 
+                           widget="boolean_toggle"
+                           optional="show"
+                           string="MC"/>
+                    
+                    <!-- Foreign currencies count -->
+                    <field name="foreign_currency_count" 
+                           optional="hide"
+                           string="Currencies"/>
+                    
+                    <!-- Total foreign amount -->
+                    <field name="total_foreign_amount" 
+                           optional="hide"
+                           widget="monetary"
+                           string="Foreign Total"/>
+                    
+                    <!-- Foreign payment count -->
+                    <field name="foreign_payment_count" 
+                           optional="hide"
+                           string="Foreign Pmts"/>
+                    
+                    <!-- Manual edits count -->
+                    <field name="manual_rate_edit_count" 
+                           optional="hide"
+                           string="Manual Rates"
+                           decoration-warning="manual_rate_edit_count > 0"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             POS SESSION FORM VIEW - Multi-currency details
+             ═══════════════════════════════════════════════════════════ -->
+        <record id="pos_multi_currency_session_form" model="ir.ui.view">
+            <field name="name">pos.session.multi_currency.form</field>
+            <field name="model">pos.session</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
+            <field name="arch" type="xml">
+                
+                <!-- Add button in header -->
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_view_foreign_currency_breakdown"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-globe"
+                            invisible="not has_foreign_payments">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="foreign_currency_count"/>
+                            </span>
+                            <span class="o_stat_text">Currencies</span>
+                        </div>
+                    </button>
+                    
+                    <button name="action_view_foreign_currency_breakdown"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-exchange"
+                            invisible="not has_foreign_payments">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="foreign_payment_count"/>
+                            </span>
+                            <span class="o_stat_text">Foreign Payments</span>
+                        </div>
+                    </button>
+                </xpath>
+
+                <!-- Add multi-currency tab -->
+                <xpath expr="//sheet" position="inside">
+                    <notebook>
+                        <page name="multi_currency" 
+                              string="Multi-Currency" 
+                              invisible="not has_foreign_payments">
+                            
+                            <!-- Summary Statistics -->
+                            <group string="Session Statistics">
+                                <group>
+                                    <field name="has_foreign_payments" readonly="1"/>
+                                    <field name="foreign_currency_count" readonly="1"/>
+                                    <field name="foreign_payment_count" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="total_foreign_amount" readonly="1"/>
+                                    <field name="manual_rate_edit_count" readonly="1"/>
+                                </group>
+                            </group>
+    
+                            <separator string="Breakdown by Currency"/>
+                            
+                            <!-- Currency breakdown -->
+                            <field name="foreign_currency_breakdown" 
+                                   widget="json_widget" 
+                                   readonly="1"
+                                   nolabel="1"/>
+    
+                        </page>
+                    </notebook>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             POS SESSION SEARCH VIEW - Multi-currency filters
+             ═══════════════════════════════════════════════════════════ -->
+        <record id="pos_multi_currency_session_search" model="ir.ui.view">
+            <field name="name">pos.session.multi_currency.search</field>
+            <field name="model">pos.session</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_session_search"/>
+            <field name="arch" type="xml">
+                
+                <xpath expr="//filter[@name='start_date']" position="after">
+                    <separator/>
+                    <filter name="foreign_currency" 
+                            string="With Foreign Currency"
+                            domain="[('has_foreign_payments', '=', True)]"/>
+                    <filter name="manual_rates" 
+                            string="With Manual Rates"
+                            domain="[('manual_rate_edit_count', '>', 0)]"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             SESSION DASHBOARD - Multi-currency overview
+             ═══════════════════════════════════════════════════════════ -->
+        <record id="pos_session_multi_currency_graph" model="ir.ui.view">
+            <field name="name">pos.session.multi_currency.graph</field>
+            <field name="model">pos.session</field>
+            <field name="arch" type="xml">
+                <graph string="Multi-Currency Sessions" type="bar">
+                    <field name="start_at" type="row" interval="day"/>
+                    <field name="config_id" type="col"/>
+                    <field name="total_foreign_amount" type="measure"/>
+                    <field name="foreign_payment_count" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="pos_session_multi_currency_pivot" model="ir.ui.view">
+            <field name="name">pos.session.multi_currency.pivot</field>
+            <field name="model">pos.session</field>
+            <field name="arch" type="xml">
+                <pivot string="Multi-Currency Analysis">
+                    <field name="config_id" type="row"/>
+                    <field name="foreign_currency_count" type="col"/>
+                    <field name="total_foreign_amount" type="measure"/>
+                    <field name="foreign_payment_count" type="measure"/>
+                    <field name="manual_rate_edit_count" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="action_pos_session_multi_currency_dashboard" model="ir.actions.act_window">
+            <field name="name">Multi-Currency Sessions</field>
+            <field name="res_model">pos.session</field>
+            <field name="view_mode">graph,pivot,list,form</field>
+            <field name="domain">[('has_foreign_payments', '=', True)]</field>
+            <field name="context">{
+                'search_default_foreign_currency': 1,
+            }</field>
+        </record>
+
+        <menuitem id="menu_pos_session_multi_currency"
+                  name="Sessions (Multi-Currency)"
+                  parent="point_of_sale.menu_point_of_sale"
+                  action="action_pos_session_multi_currency_dashboard"
+                  sequence="21"/>
+
+    </data>
+</odoo>
