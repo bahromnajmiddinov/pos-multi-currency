@@ -46,9 +46,6 @@ export class PosMultiCurrencyService {
             // Extract allowed currency IDs
             this._allowedCurrencyIds = this.currencies.map(c => c.id);
             
-            console.log("Multi-currency allowed IDs:", this._allowedCurrencyIds);
-            console.log("Available currencies:", this.currencies);
-            
             // Build initial rates from currencies
             this.rates = {};
             this.currencies.forEach(curr => {

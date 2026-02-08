@@ -139,10 +139,19 @@ class PosConfig(models.Model):
         }
         
         # Check if user can edit rates
-        if self.multi_currency_allow_rate_edit and self.multi_currency_rate_edit_group_id:
-            result["can_edit_rate"] = self.env.user.has_group(
-                self.multi_currency_rate_edit_group_id.full_name
-            )
+        if self.multi_currency_allow_rate_edit:
+            # Check if user is POS Manager/Administrator
+            is_pos_manager = self.env.user.has_group('point_of_sale.group_pos_manager')
+            
+            # Check if user is in the specific rate edit group (if configured)
+            has_rate_group = False
+            if self.multi_currency_rate_edit_group_id:
+                has_rate_group = self.env.user.has_group(
+                    self.multi_currency_rate_edit_group_id.full_name
+                )
+            
+        # User can edit if they're a POS manager OR in the specific group
+        result["can_edit_rate"] = is_pos_manager or has_rate_group
         
         # Get base currency
         base_currency = self.currency_id
