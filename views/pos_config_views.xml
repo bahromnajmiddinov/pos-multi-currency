@@ -2,14 +2,12 @@
 <odoo>
     <data>
 
-        <!-- ═══ pos.config form: inject multi-currency settings ═══ -->
         <record id="pos_multi_currency_config_form" model="ir.ui.view">
             <field name="name">pos.config.multi.currency.form</field>
             <field name="model">pos.config</field>
             <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
             <field name="arch" type="xml">
 
-                <!-- Insert after ePos Printer -->
                 <xpath expr="//setting[@id='other_devices']" position="after">
 
                     <setting id="multi_currency_settings"
@@ -21,8 +19,20 @@
                         <div class="content-group mt16"
                             invisible="not multi_currency_enabled">
 
+                            <label for="multi_currency_ids"/>
                             <field name="multi_currency_ids"
                                 widget="many2many_tags"/>
+
+                            <!-- ADD THIS: Receipt Currency Field -->
+                            <label for="multi_currency_receipt_currency_id"
+                                   string="Receipt Display Currency"
+                                   class="mt8"/>
+                            <field name="multi_currency_receipt_currency_id"
+                                   placeholder="Same as order currency"
+                                   options="{'no_create': True}"/>
+                            <div class="text-muted small">
+                                If set, all amounts on receipts will be displayed in this currency
+                            </div>
 
                             <label for="multi_currency_allow_rate_edit"
                                    class="mt8 mb0 d-block"/>

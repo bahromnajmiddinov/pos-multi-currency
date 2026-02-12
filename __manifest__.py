@@ -36,6 +36,8 @@
             "pos_multi/static/src/js/components/multi_currency_badge.js",
             "pos_multi/static/src/js/components/currency_rate_info.xml",
             "pos_multi/static/src/js/components/currency_rate_info.js",
+            "pos_multi/static/src/js/components/order_receipt.xml",
+            "pos_multi/static/src/js/components/order_receipt.js",
             # Screen patches (XML + JS)
             "pos_multi/static/src/js/screens/payment_screen_multi_currency.xml",
             "pos_multi/static/src/js/screens/payment_screen_multi_currency.js",

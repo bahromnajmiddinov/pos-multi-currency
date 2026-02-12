@@ -29,9 +29,31 @@ class PosConfig(models.Model):
         default=lambda self: self.env.ref("base.group_user", raise_if_not_found=False),
         help="Only users in this group can edit exchange rates.",
     )
+    
+    multi_currency_receipt_currency_id = fields.Many2one(
+        "res.currency",
+        string="Receipt Display Currency",
+        help="If set, all amounts on receipts will be displayed in this currency, "
+            "regardless of the order's base currency.",
+    )
 
     # ─── Validation ──────────────────────────────────────────────────
 
+    @api.constrains("multi_currency_enabled", "multi_currency_receipt_currency_id")
+    def _check_receipt_currency(self):
+        for rec in self:
+            if rec.multi_currency_receipt_currency_id:
+                if not rec.multi_currency_enabled:
+                    raise ValidationError(
+                        "Receipt currency can only be set when multi-currency is enabled."
+                    )
+                # Ensure receipt currency is in allowed currencies
+                all_currencies = rec.multi_currency_ids | rec.currency_id
+                if rec.multi_currency_receipt_currency_id not in all_currencies:
+                    raise ValidationError(
+                        "Receipt currency must be either the base currency or one of the allowed currencies."
+                    )
+    
     @api.constrains("multi_currency_enabled", "multi_currency_ids")
     def _check_multi_currency_config(self):
         for rec in self:
@@ -93,16 +115,23 @@ class PosConfig(models.Model):
         if not read_records:
             return read_records
         
-        # Add multi-currency configuration to the first record (which is this config)
         record = read_records[0]
         
-        # Add multi-currency config - use 'config' not 'self'
+        # Add multi-currency config
         record['multi_currency_enabled'] = config.multi_currency_enabled
         record['multi_currency_allow_rate_edit'] = config.multi_currency_allow_rate_edit
-        # Use mapped('id') to ensure proper ID list serialization
         record['multi_currency_ids'] = config.multi_currency_ids.mapped('id') if config.multi_currency_enabled else []
         
-        # Permission check: can the current user edit rates?
+        # ADD THIS: Receipt currency configuration
+        if config.multi_currency_receipt_currency_id:
+            record['multi_currency_receipt_currency_id'] = config.multi_currency_receipt_currency_id.id
+            record['multi_currency_receipt_currency_name'] = config.multi_currency_receipt_currency_id.name
+            record['multi_currency_receipt_currency_symbol'] = config.multi_currency_receipt_currency_id.symbol
+            record['multi_currency_receipt_currency_rounding'] = config.multi_currency_receipt_currency_id.rounding
+        else:
+            record['multi_currency_receipt_currency_id'] = False
+        
+        # Permission check
         can_edit = False
         if config.multi_currency_allow_rate_edit and config.multi_currency_rate_edit_group_id:
             can_edit = self.env.user.has_group(
@@ -135,7 +164,8 @@ class PosConfig(models.Model):
             "allow_rate_edit": self.multi_currency_allow_rate_edit,
             "can_edit_rate": False,
             "base_currency": None,
-            "currencies": []
+            "currencies": [],
+            "receipt_currency": None,
         }
         
         # Check if user can edit rates
@@ -165,6 +195,19 @@ class PosConfig(models.Model):
                 "decimal_places": base_currency.decimal_places,
                 "position": base_currency.position,
             }
+            
+        # Get receipt currency config
+        if self.multi_currency_receipt_currency_id:
+            result["receipt_currency"] = {
+            "id": self.multi_currency_receipt_currency_id.id,
+            "name": self.multi_currency_receipt_currency_id.name,
+            "symbol": self.multi_currency_receipt_currency_id.symbol,
+            "rounding": self.multi_currency_receipt_currency_id.rounding,
+            "rate": self.multi_currency_receipt_currency_id.rate,
+            "decimal_places": self.multi_currency_receipt_currency_id.decimal_places,
+            "position": self.multi_currency_receipt_currency_id.position,
+        }
+
         
         # Get all configured currencies
         if self.multi_currency_enabled and self.multi_currency_ids:

@@ -15,6 +15,7 @@ export class PosMultiCurrencyService {
         this._allowedCurrencyIds = [];
         this.currencies = []; // Store currencies from RPC
         this._baseCurrency = null; // Store base currency from RPC
+        this._receiptCurrency = null; // Store receipt currency from RPC
         this.rates = {};
         this.baseCurrencyId = null;
         this.sessionEnabled = true;
@@ -32,8 +33,6 @@ export class PosMultiCurrencyService {
                 [[config.id]]
             );
             
-            console.log("Multi-currency config from RPC:", mcConfig);
-            
             this._configEnabled = mcConfig.enabled;
             this._allowRateEdit = mcConfig.allow_rate_edit;
             this._canEditRate = mcConfig.can_edit_rate;
@@ -41,6 +40,7 @@ export class PosMultiCurrencyService {
             // Store currencies from RPC response
             this.currencies = mcConfig.currencies || [];
             this._baseCurrency = mcConfig.base_currency;
+            this._receiptCurrency = mcConfig.receipt_currency;
             this.baseCurrencyId = this._baseCurrency?.id || null;
             
             // Extract allowed currency IDs
@@ -64,6 +64,14 @@ export class PosMultiCurrencyService {
         }
         
         this._initialized = true;
+    }
+
+    get receiptCurrency() {
+        return this._receiptCurrency || null;
+    }
+
+    get shouldConvertReceipt() {
+        return this._receiptCurrency && this._receiptCurrency.id !== this.baseCurrencyId;
     }
 
     get isActive() {
