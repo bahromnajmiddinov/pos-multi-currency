@@ -27,9 +27,11 @@
             <field name="arch" type="xml">
                 <xpath expr="//list" position="inside">
                     <field name="payment_currency_id" optional="hide"/>
-                    <field name="payment_currency_amount" optional="hide"/>
-                    <field name="exchange_rate" optional="hide"/>
-                    <field name="rate_manually_edited" optional="hide"/>
+                    <field name="payment_currency_amount" widget="monetary"
+                           invisible="payment_currency_amount == 0"/>
+                    <field name="exchange_rate" optional="show"
+                           invisible="payment_currency_amount == 0"/>
+                    <field name="rate_manually_edited" optional="show"/>
                 </xpath>
             </field>
         </record>

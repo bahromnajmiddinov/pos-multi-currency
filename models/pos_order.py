@@ -25,7 +25,6 @@ class PosOrder(models.Model):
         string="Total Foreign Amount",
         compute="_compute_foreign_currency_stats",
         store=True,
-        currency_field="currency_id",
         help="Sum of all foreign currency payments converted to order currency.",
     )
     
@@ -66,7 +65,7 @@ class PosOrder(models.Model):
             
             # Sum of foreign payments in base currency
             order.total_foreign_amount = sum(
-                p.amount for p in foreign_payments
+                p.payment_currency_amount for p in foreign_payments
             )
             
             # Count manually edited rates

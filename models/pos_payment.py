@@ -11,11 +11,12 @@ class PosPayment(models.Model):
         string="Payment Currency",
         help="The currency the customer actually paid in (may differ from order currency).",
     )
-    payment_currency_amount = fields.Float(
+    payment_currency_amount = fields.Monetary(
         string="Amount in Payment Currency",
         digits="Product Price",
         default=0.0,
         help="The amount expressed in the payment currency.",
+        currency_field="payment_currency_id",
     )
     exchange_rate = fields.Float(
         string="Exchange Rate",

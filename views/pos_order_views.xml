@@ -12,8 +12,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='amount_total']" position="after">
                     <!-- Multi-currency indicator badge -->
-                    <field name="has_foreign_payments" 
-                           widget="boolean_toggle" 
+                    <field name="has_foreign_payments"
                            optional="show"
                            string="MC"/>
                     
@@ -24,8 +23,7 @@
                     
                     <!-- Total foreign amount in base currency -->
                     <field name="total_foreign_amount" 
-                           optional="hide"
-                           widget="monetary"
+                           optional="show"
                            string="Foreign Total"/>
                     
                     <!-- Number of manually edited rates -->
@@ -46,6 +44,23 @@
             <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
             <field name="arch" type="xml">
                 
+                <xpath expr="//page[@name='payments']/field[@name='payment_ids']/list" position="replace">
+                    <list string="Payments" create="1" editable="bottom" open_form_view="True">
+                        <field name="currency_id" column_invisible="True" />
+                        <field name="payment_date"/>
+                        <field name="payment_method_id" domain="[('id', 'in', parent.available_payment_method_ids)]" />
+                        <field name="amount"/>
+                        <field name="payment_method_payment_mode" optional="hide"/>
+                        <field name="card_no" invisible="not card_no" optional="hide"/>
+                        <field name="card_brand" string="Card's Brand" invisible="not card_brand or not card_no" optional="hide"/>
+                        <field name="cardholder_name" invisible="not cardholder_name or not card_no" optional="hide"/>
+                        <field name="payment_currency_amount"/>
+                        <field name="payment_currency_id" column_invisible="True"/>
+                        <field name="exchange_rate"/>
+                        <field name="rate_manually_edited"/>
+                    </list>
+                </xpath>
+
                 <!-- Add multi-currency stats after payment lines -->
                 <xpath expr="//page[@name='payments']" position="after">
                     <page name="multi_currency" 
