@@ -1,0 +1,812 @@
+# Odoo Server tarjimasi.
+# Ushbu fayl quyidagi modullarning tarjimasini o'z ichiga oladi:
+# 	* pos_multi
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-28 16:43+0000\n"
+"PO-Revision-Date: 2026-02-28 16:43+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: uz\n"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/components/order_receipt.xml:0
+msgid "(Original currency:"
+msgstr "(Asl valyuta:"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/components/order_receipt.xml:0
+msgid "(Paid:"
+msgstr "(To'langan:"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_form
+msgid "<span class=\"o_stat_text\">Currencies</span>"
+msgstr "<span class=\"o_stat_text\">Valyutalar</span>"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_form
+msgid "<span class=\"o_stat_text\">Foreign Payments</span>"
+msgstr "<span class=\"o_stat_text\">Chet el to'lovlari</span>"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+msgid "<span class=\"o_stat_text\">Foreign Total</span>"
+msgstr "<span class=\"o_stat_text\">Chet el summasi</span>"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_config_form
+msgid "Accept payments in multiple currencies in POS."
+msgstr "POS tizimida bir nechta valyutalarda to'lovlarni qabul qilish."
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/components/order_receipt.xml:0
+msgid "All amounts displayed in"
+msgstr "Barcha summalar ko'rsatilgan valyuta:"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_config__multi_currency_allow_rate_edit
+msgid "Allow Rate Editing"
+msgstr "Kursni tahrir qilishga ruxsat berish"
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_config__multi_currency_enabled
+msgid "Allow accepting payments in multiple currencies in this POS."
+msgstr "Ushbu POS tizimida bir nechta valyutalarda to'lovlarni qabul qilishga ruxsat berish."
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_config__multi_currency_ids
+msgid "Allowed Currencies"
+msgstr "Ruxsat etilgan valyutalar"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_payment__payment_currency_amount
+msgid "Amount in Payment Currency"
+msgstr "To'lov valyutasidagi summa"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/rate_edit_popup.xml:0
+msgid "Apply Rate"
+msgstr "Kursni qo'llash"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+msgid "Avg. Rate"
+msgstr "O'rt. kurs"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/currency_selection_popup.xml:0
+msgid "BASE"
+msgstr "ASOSIY"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_tree_enhanced
+msgid "Base Amount"
+msgstr "Asosiy summa"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/rate_edit_popup.xml:0
+msgid "Base Currency:"
+msgstr "Asosiy valyuta:"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_form
+msgid "Breakdown by Currency"
+msgstr "Valyutalar bo'yicha taqsimot"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/currency_selection_popup.xml:0
+#: code:addons/pos_multi/static/src/js/popups/rate_edit_popup.xml:0
+msgid "Cancel"
+msgstr "Bekor qilish"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+msgid "Card's Brand"
+msgstr "Karta brendi"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/statistics_popup.xml:0
+msgid "Close"
+msgstr "Yopish"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/currency_selection_popup.xml:0
+msgid "Confirm"
+msgstr "Tasdiqlash"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/rate_edit_popup.xml:0
+msgid "Converted:"
+msgstr "Konvertatsiya qilingan:"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_list
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_list
+msgid "Currencies"
+msgstr "Valyutalar"
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_config__multi_currency_ids
+msgid "Currencies available for payment selection in POS."
+msgstr "POS tizimida to'lov valyutasi sifatida tanlash mumkin bo'lgan valyutalar."
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/statistics_popup.xml:0
+#: model:ir.model,name:pos_multi.model_res_currency
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_search_enhanced
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_tree_enhanced
+msgid "Currency"
+msgstr "Valyuta"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_session__foreign_currency_breakdown
+msgid "Currency Breakdown"
+msgstr "Valyuta taqsimoti"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_search
+msgid "Currency Count"
+msgstr "Valyutalar soni"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/currency_selection_popup.xml:0
+msgid "Custom Rate"
+msgstr "Maxsus kurs"
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_session__foreign_currency_breakdown
+msgid "Detailed breakdown by currency."
+msgstr "Valyutalar bo'yicha batafsil taqsimot."
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_order__foreign_currency_details
+msgid "Detailed breakdown of payments by currency."
+msgstr "To'lovlarning valyutalar bo'yicha batafsil taqsimoti."
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_config__display_name
+#: model:ir.model.fields,field_description:pos_multi.field_pos_order__display_name
+#: model:ir.model.fields,field_description:pos_multi.field_pos_payment__display_name
+#: model:ir.model.fields,field_description:pos_multi.field_pos_payment_method__display_name
+#: model:ir.model.fields,field_description:pos_multi.field_pos_session__display_name
+#: model:ir.model.fields,field_description:pos_multi.field_res_currency__display_name
+msgid "Display Name"
+msgstr "Ko'rsatiladigan nom"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/components/multi_currency_badge.xml:0
+msgid "Edit exchange rate"
+msgstr "Ayirboshlash kursini tahrirlash"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/statistics_popup.xml:0
+msgid "Edited"
+msgstr "Tahrirlangan"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_config__multi_currency_enabled
+msgid "Enable Multi Currency"
+msgstr "Ko'p valyutani yoqish"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/currency_selection_popup.xml:0
+msgid "Enter rate"
+msgstr "Kursni kiriting"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_payment__exchange_rate
+msgid "Exchange Rate"
+msgstr "Ayirboshlash kursi"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/components/order_receipt.xml:0
+msgid "Exchange Rate: 1"
+msgstr "Ayirboshlash kursi: 1"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/components/currency_rate_info.xml:0
+msgid "Exchange Rates"
+msgstr "Valyuta kurslari"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_payment_method__fixed_currency_id
+msgid "Fixed Currency"
+msgstr "Belgilangan valyuta"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_tree_enhanced
+msgid "Foreign Amount"
+msgstr "Chet el summasi"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_session__foreign_currency_count
+msgid "Foreign Currencies"
+msgstr "Chet el valyutalari"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_order__foreign_currency_count
+msgid "Foreign Currencies Used"
+msgstr "Ishlatilgan chet el valyutalari"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_order__foreign_currency_details
+msgid "Foreign Currency Breakdown"
+msgstr "Chet el valyutasi taqsimoti"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_search_enhanced
+msgid "Foreign Currency Only"
+msgstr "Faqat chet el valyutasi"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_search
+msgid "Foreign Currency Payments"
+msgstr "Chet el valyutasidagi to'lovlar"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_session__foreign_payment_count
+msgid "Foreign Payments"
+msgstr "Chet el to'lovlari"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_list
+msgid "Foreign Pmts"
+msgstr "Chet el to'lovlari"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_list
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_list
+msgid "Foreign Total"
+msgstr "Chet el summasi"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_session__has_foreign_payments
+msgid "Has Foreign Currency"
+msgstr "Chet el valyutasi mavjud"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_order__has_foreign_payments
+msgid "Has Foreign Currency Payments"
+msgstr "Chet el valyutasida to'lovlari mavjud"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_config__id
+#: model:ir.model.fields,field_description:pos_multi.field_pos_order__id
+#: model:ir.model.fields,field_description:pos_multi.field_pos_payment__id
+#: model:ir.model.fields,field_description:pos_multi.field_pos_payment_method__id
+#: model:ir.model.fields,field_description:pos_multi.field_pos_session__id
+#: model:ir.model.fields,field_description:pos_multi.field_res_currency__id
+msgid "ID"
+msgstr "ID"
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_config__multi_currency_allow_rate_edit
+msgid ""
+"If enabled, users with permission can manually adjust the exchange rate at "
+"payment time."
+msgstr "Agar yoqilgan bo'lsa, ruxsati bo'lgan foydalanuvchilar to'lov vaqtida ayirboshlash kursini qo'lda o'zgartirishlari mumkin."
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_config_form
+msgid "If set, all amounts on receipts will be displayed in this currency"
+msgstr "Agar belgilangan bo'lsa, kvitansiyalardagi barcha summalar ushbu valyutada ko'rsatiladi"
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_config__multi_currency_receipt_currency_id
+msgid ""
+"If set, all amounts on receipts will be displayed in this currency, "
+"regardless of the order's base currency."
+msgstr "Agar belgilangan bo'lsa, kvitansiyalardagi barcha summalar buyurtmaning asosiy valyutasidan qat'i nazar, ushbu valyutada ko'rsatiladi."
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/statistics_popup.xml:0
+msgid "Loading…"
+msgstr "Yuklanmoqda…"
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_payment_method__fixed_currency_id
+msgid ""
+"Lock this payment method to a single currency. When set, multi-currency "
+"selection is skipped and this currency is used automatically."
+msgstr "Ushbu to'lov usulini bitta valyutaga biriktiring. Belgilanganda, ko'p valyutali tanlov o'tkazib yuboriladi va bu valyuta avtomatik ravishda ishlatiladi."
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_list
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_list
+msgid "MC"
+msgstr "KV"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_tree_enhanced
+msgid "Manual"
+msgstr "Qo'lda"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_search_enhanced
+msgid "Manual Edit"
+msgstr "Qo'lda tahrirlash"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+msgid "Manual Edits"
+msgstr "Qo'lda tahrirlashlar"
+
+#. module: pos_multi
+#: model:ir.actions.act_window,name:pos_multi.action_pos_payment_manual_rates
+#: model:ir.model.fields,field_description:pos_multi.field_pos_session__manual_rate_edit_count
+#: model:ir.ui.menu,name:pos_multi.menu_pos_payment_manual_rates
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_search
+msgid "Manual Rate Edits"
+msgstr "Qo'lda kurs tahrirlashlari"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_list
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_list
+msgid "Manual Rates"
+msgstr "Qo'lda kiritilgan kurslar"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_search_enhanced
+msgid "Manual Rates Only"
+msgstr "Faqat qo'lda kiritilgan kurslar"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_order__manual_rate_count
+msgid "Manually Edited Rates"
+msgstr "Qo'lda tahrirlangan kurslar"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/components/multi_currency_badge.xml:0
+msgid "Manually edited"
+msgstr "Qo'lda tahrirlangan"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/rate_edit_popup.xml:0
+msgid "Market Rate:"
+msgstr "Bozor kursi:"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_config_form
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_payment_view
+msgid "Multi Currency"
+msgstr "Ko'p valyuta"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/screens/payment_screen_multi_currency.xml:0
+msgid "Multi Currency OFF"
+msgstr "Ko'p valyuta O'CHIQ"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/screens/payment_screen_multi_currency.xml:0
+msgid "Multi Currency ON"
+msgstr "Ko'p valyuta YOQIQ"
+
+#. module: pos_multi
+#: model:ir.ui.menu,name:pos_multi.menu_pos_multi_currency_dashboard
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_form
+msgid "Multi-Currency"
+msgstr "Ko'p valyutali"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_graph
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_session_multi_currency_pivot
+msgid "Multi-Currency Analysis"
+msgstr "Ko'p valyutali tahlil"
+
+#. module: pos_multi
+#: model:ir.actions.act_window,name:pos_multi.pos_multi_currency_dashboard_action
+msgid "Multi-Currency Dashboard"
+msgstr "Ko'p valyutali boshqaruv paneli"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+msgid "Multi-Currency Details"
+msgstr "Ko'p valyutali tafsilotlar"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/screens/receipt_screen_multi_currency.xml:0
+#: model:ir.actions.act_window,name:pos_multi.action_pos_payment_multi_currency
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_tree_enhanced
+msgid "Multi-Currency Payments"
+msgstr "Ko'p valyutali to'lovlar"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_pivot
+msgid "Multi-Currency Pivot"
+msgstr "Ko'p valyutali pivot"
+
+#. module: pos_multi
+#: model:ir.actions.act_window,name:pos_multi.action_pos_session_multi_currency_dashboard
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_session_multi_currency_graph
+msgid "Multi-Currency Sessions"
+msgstr "Ko'p valyutali sessiyalar"
+
+#. module: pos_multi
+#: model_terms:ir.actions.act_window,help:pos_multi.action_pos_payment_manual_rates
+msgid "No manual rate edits"
+msgstr "Qo'lda kurs tahrirlashlari mavjud emas"
+
+#. module: pos_multi
+#: model_terms:ir.actions.act_window,help:pos_multi.pos_multi_currency_dashboard_action
+msgid "No multi-currency orders yet"
+msgstr "Hali ko'p valyutali buyurtmalar mavjud emas"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/statistics_popup.xml:0
+msgid "No multi-currency payments in this session yet."
+msgstr "Bu sessiyada hali ko'p valyutali to'lovlar mavjud emas."
+
+#. module: pos_multi
+#: model_terms:ir.actions.act_window,help:pos_multi.action_pos_payment_multi_currency
+msgid "No multi-currency payments yet"
+msgstr "Hali ko'p valyutali to'lovlar mavjud emas"
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_order__foreign_currency_count
+msgid "Number of different foreign currencies used in payments."
+msgstr "To'lovlarda ishlatilgan turli xil chet el valyutalarining soni."
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_session__foreign_currency_count
+msgid "Number of different foreign currencies used in this session."
+msgstr "Ushbu sessiyada ishlatilgan turli xil chet el valyutalarining soni."
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_session__foreign_payment_count
+msgid "Number of payment lines using foreign currency."
+msgstr "Chet el valyutasidan foydalanadigan to'lov qatorlari soni."
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_order__manual_rate_count
+msgid "Number of payment lines with manually edited exchange rates."
+msgstr "Qo'lda tahrirlangan ayirboshlash kurslariga ega to'lov qatorlari soni."
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_session__manual_rate_edit_count
+msgid "Number of payments with manually edited rates."
+msgstr "Qo'lda tahrirlangan kurslarga ega to'lovlar soni."
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_config__multi_currency_rate_edit_group_id
+msgid "Only users in this group can edit exchange rates."
+msgstr "Faqat ushbu guruhdagi foydalanuvchilar valyuta kurslarini tahrirlashi mumkin."
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/rate_edit_popup.xml:0
+msgid "Order Amount:"
+msgstr "Buyurtma summasi:"
+
+#. module: pos_multi
+#: model_terms:ir.actions.act_window,help:pos_multi.pos_multi_currency_dashboard_action
+msgid "Orders with foreign currency payments will appear here."
+msgstr "Chet el valyutasidagi to'lovlari bo'lgan buyurtmalar bu yerda ko'rinadi."
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/components/order_receipt.xml:0
+msgid "Original:"
+msgstr "Asl:"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_graph
+msgid "Payment Analysis"
+msgstr "To'lov tahlili"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_payment__payment_currency_id
+msgid "Payment Currency"
+msgstr "To'lov valyutasi"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/rate_edit_popup.xml:0
+msgid "Payment Currency:"
+msgstr "To'lov valyutasi:"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_search_enhanced
+msgid "Payment Date"
+msgstr "To'lov sanasi"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_search_enhanced
+msgid "Payment Method"
+msgstr "To'lov usuli"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_pivot
+msgid "Payment Pivot"
+msgstr "To'lov pivoti"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_search_enhanced
+msgid "Payment Search"
+msgstr "To'lov qidiruvi"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+msgid "Payments"
+msgstr "To'lovlar"
+
+#. module: pos_multi
+#: model:ir.ui.menu,name:pos_multi.menu_pos_payment_multi_currency
+msgid "Payments (Multi-Currency)"
+msgstr "To'lovlar (Ko'p valyutali)"
+
+#. module: pos_multi
+#: model_terms:ir.actions.act_window,help:pos_multi.action_pos_payment_multi_currency
+msgid "Payments made in foreign currencies will appear here."
+msgstr "Chet el valyutalarida amalga oshirilgan to'lovlar bu yerda ko'rinadi."
+
+#. module: pos_multi
+#: model_terms:ir.actions.act_window,help:pos_multi.action_pos_payment_manual_rates
+msgid ""
+"Payments with manually edited exchange rates will appear here for audit "
+"purposes."
+msgstr "Tekshiruv maqsadlari uchun qo'lda tahrirlangan ayirboshlash kurslariga ega to'lovlar bu yerda ko'rinadi."
+
+#. module: pos_multi
+#: model:ir.model,name:pos_multi.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr "Savdo nuqtasi konfiguratsiyasi"
+
+#. module: pos_multi
+#: model:ir.model,name:pos_multi.model_pos_order
+msgid "Point of Sale Orders"
+msgstr "Savdo nuqtasi buyurtmalari"
+
+#. module: pos_multi
+#: model:ir.model,name:pos_multi.model_pos_payment_method
+msgid "Point of Sale Payment Methods"
+msgstr "Savdo nuqtasi to'lov usullari"
+
+#. module: pos_multi
+#: model:ir.model,name:pos_multi.model_pos_payment
+msgid "Point of Sale Payments"
+msgstr "Savdo nuqtasi to'lovlari"
+
+#. module: pos_multi
+#: model:ir.model,name:pos_multi.model_pos_session
+msgid "Point of Sale Session"
+msgstr "Savdo nuqtasi sessiyasi"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_tree_enhanced
+msgid "Rate"
+msgstr "Kurs"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_config__multi_currency_rate_edit_group_id
+msgid "Rate Edit Security Group"
+msgstr "Kurs tahrirlash xavfsizlik guruhi"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_payment__rate_manually_edited
+msgid "Rate Manually Edited"
+msgstr "Kurs qo'lda tahrirlangan"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/utils/currency_utils.js:0
+msgid "Rate deviates more than %s%% from market. Confirm to proceed."
+msgstr "Kurs bozor kursidan %s%% dan ko'proq farq qiladi. Davom etish uchun tasdiqlang."
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/components/currency_rate_info.xml:0
+msgid "Rate manually edited"
+msgstr "Kurs qo'lda tahrirlangan"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/utils/currency_utils.js:0
+msgid "Rate must be a positive number."
+msgstr "Kurs musbat raqam bo'lishi kerak."
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_payment__exchange_rate
+msgid ""
+"Rate used: 1 unit of order currency = exchange_rate units of payment "
+"currency."
+msgstr "Ishlatilgan kurs: 1 birlik buyurtma valyutasi = exchange_rate birlik to'lov valyutasi."
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/components/multi_currency_badge.xml:0
+msgid "Rate:"
+msgstr "Kurs:"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_config__multi_currency_receipt_currency_id
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_config_form
+msgid "Receipt Display Currency"
+msgstr "Kvitansiya ko'rsatish valyutasi"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_config_form
+msgid "Same as order currency"
+msgstr "Buyurtma valyutasi bilan bir xil"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+msgid "See JSON field below for detailed breakdown"
+msgstr "Batafsil taqsimot uchun quyidagi JSON maydoniga qarang"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_search_enhanced
+msgid "Session"
+msgstr "Sessiya"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_form
+msgid "Session Statistics"
+msgstr "Sessiya statistikasi"
+
+#. module: pos_multi
+#: model:ir.ui.menu,name:pos_multi.menu_pos_session_multi_currency
+msgid "Sessions (Multi-Currency)"
+msgstr "Sessiyalar (Ko'p valyutali)"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/screens/payment_screen_multi_currency.xml:0
+msgid "Statistics"
+msgstr "Statistika"
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_order__total_foreign_amount
+msgid "Sum of all foreign currency payments converted to order currency."
+msgstr "Buyurtma valyutasiga konvertatsiya qilingan barcha chet el valyutasidagi to'lovlar summasi."
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+msgid "Summary Statistics"
+msgstr "Xulosa statistikasi"
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_payment__payment_currency_amount
+msgid "The amount expressed in the payment currency."
+msgstr "To'lov valyutasida ifodalangan summa."
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_payment__payment_currency_id
+msgid ""
+"The currency the customer actually paid in (may differ from order currency)."
+msgstr "Mijoz haqiqatda to'lagan valyuta (buyurtma valyutasidan farq qilishi mumkin)."
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_search_enhanced
+msgid "This Month"
+msgstr "Shu oy"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_search_enhanced
+msgid "This Week"
+msgstr "Shu hafta"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_search_enhanced
+msgid "Today"
+msgstr "Bugun"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/screens/payment_screen_multi_currency.xml:0
+msgid "Toggle multi-currency for this session"
+msgstr "Ushbu sessiya uchun ko'p valyutani yoqish/o'chirish"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/components/order_receipt.xml:0
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_tree_enhanced
+msgid "Total"
+msgstr "Jami"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/statistics_popup.xml:0
+msgid "Total (base)"
+msgstr "Jami (asosiy)"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/statistics_popup.xml:0
+msgid "Total (foreign)"
+msgstr "Jami (chet el)"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_tree_enhanced
+msgid "Total Foreign"
+msgstr "Jami chet el"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_order__total_foreign_amount
+#: model:ir.model.fields,field_description:pos_multi.field_pos_session__total_foreign_amount
+msgid "Total Foreign Amount"
+msgstr "Chet el summasining jami"
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_session__total_foreign_amount
+msgid "Total of all foreign currency payments converted to session currency."
+msgstr "Sessiya valyutasiga konvertatsiya qilingan barcha chet el valyutasidagi to'lovlar summasi."
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/statistics_popup.xml:0
+msgid "Totals"
+msgstr "Jami summalar"
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_payment__rate_manually_edited
+msgid "True if the cashier manually overrode the exchange rate."
+msgstr "Agar kassir ayirboshlash kursini qo'lda o'zgartirgan bo'lsa, true."
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_order__has_foreign_payments
+msgid "True if this order has at least one payment in a foreign currency."
+msgstr "Agar ushbu buyurtmada kamida bitta chet el valyutasida to'lov bo'lsa, true."
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_session__has_foreign_payments
+msgid "True if this session has any foreign currency payments."
+msgstr "Agar ushbu sessiyada chet el valyutasida to'lovlar mavjud bo'lsa, true."
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/statistics_popup.xml:0
+msgid "Txns"
+msgstr "Tranz."
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/screens/payment_screen_multi_currency.xml:0
+msgid "View multi-currency statistics for this session"
+msgstr "Ushbu sessiya uchun ko'p valyutali statistikani ko'rish"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_search
+msgid "With Foreign Currency"
+msgstr "Chet el valyutasi bilan"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_search
+msgid "With Manual Rates"
+msgstr "Qo'lda kiritilgan kurslar bilan"

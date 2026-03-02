@@ -1,0 +1,812 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* pos_multi
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-28 16:43+0000\n"
+"PO-Revision-Date: 2026-02-28 16:43+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: ru\n"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/components/order_receipt.xml:0
+msgid "(Original currency:"
+msgstr "(Исходная валюта:"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/components/order_receipt.xml:0
+msgid "(Paid:"
+msgstr "(Оплачено:"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_form
+msgid "<span class=\"o_stat_text\">Currencies</span>"
+msgstr "<span class=\"o_stat_text\">Валюты</span>"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_form
+msgid "<span class=\"o_stat_text\">Foreign Payments</span>"
+msgstr "<span class=\"o_stat_text\">Инвалютные платежи</span>"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+msgid "<span class=\"o_stat_text\">Foreign Total</span>"
+msgstr "<span class=\"o_stat_text\">Итого в инвалюте</span>"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_config_form
+msgid "Accept payments in multiple currencies in POS."
+msgstr "Принимать платежи в нескольких валютах в POS."
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/components/order_receipt.xml:0
+msgid "All amounts displayed in"
+msgstr "Все суммы отображаются в"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_config__multi_currency_allow_rate_edit
+msgid "Allow Rate Editing"
+msgstr "Разрешить редактирование курса"
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_config__multi_currency_enabled
+msgid "Allow accepting payments in multiple currencies in this POS."
+msgstr "Разрешить прием платежей в нескольких валютах в этой POS."
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_config__multi_currency_ids
+msgid "Allowed Currencies"
+msgstr "Разрешенные валюты"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_payment__payment_currency_amount
+msgid "Amount in Payment Currency"
+msgstr "Сумма в валюте платежа"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/rate_edit_popup.xml:0
+msgid "Apply Rate"
+msgstr "Применить курс"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+msgid "Avg. Rate"
+msgstr "Ср. курс"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/currency_selection_popup.xml:0
+msgid "BASE"
+msgstr "БАЗОВАЯ"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_tree_enhanced
+msgid "Base Amount"
+msgstr "Сумма в базовой валюте"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/rate_edit_popup.xml:0
+msgid "Base Currency:"
+msgstr "Базовая валюта:"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_form
+msgid "Breakdown by Currency"
+msgstr "Разбивка по валютам"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/currency_selection_popup.xml:0
+#: code:addons/pos_multi/static/src/js/popups/rate_edit_popup.xml:0
+msgid "Cancel"
+msgstr "Отмена"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+msgid "Card's Brand"
+msgstr "Бренд карты"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/statistics_popup.xml:0
+msgid "Close"
+msgstr "Закрыть"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/currency_selection_popup.xml:0
+msgid "Confirm"
+msgstr "Подтвердить"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/rate_edit_popup.xml:0
+msgid "Converted:"
+msgstr "Конвертировано:"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_list
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_list
+msgid "Currencies"
+msgstr "Валюты"
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_config__multi_currency_ids
+msgid "Currencies available for payment selection in POS."
+msgstr "Валюты, доступные для выбора при оплате в POS."
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/statistics_popup.xml:0
+#: model:ir.model,name:pos_multi.model_res_currency
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_search_enhanced
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_tree_enhanced
+msgid "Currency"
+msgstr "Валюта"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_session__foreign_currency_breakdown
+msgid "Currency Breakdown"
+msgstr "Разбивка по валютам"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_search
+msgid "Currency Count"
+msgstr "Количество валют"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/currency_selection_popup.xml:0
+msgid "Custom Rate"
+msgstr "Пользовательский курс"
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_session__foreign_currency_breakdown
+msgid "Detailed breakdown by currency."
+msgstr "Детальная разбивка по валютам."
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_order__foreign_currency_details
+msgid "Detailed breakdown of payments by currency."
+msgstr "Детальная разбивка платежей по валютам."
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_config__display_name
+#: model:ir.model.fields,field_description:pos_multi.field_pos_order__display_name
+#: model:ir.model.fields,field_description:pos_multi.field_pos_payment__display_name
+#: model:ir.model.fields,field_description:pos_multi.field_pos_payment_method__display_name
+#: model:ir.model.fields,field_description:pos_multi.field_pos_session__display_name
+#: model:ir.model.fields,field_description:pos_multi.field_res_currency__display_name
+msgid "Display Name"
+msgstr "Отображаемое имя"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/components/multi_currency_badge.xml:0
+msgid "Edit exchange rate"
+msgstr "Изменить обменный курс"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/statistics_popup.xml:0
+msgid "Edited"
+msgstr "Изменено"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_config__multi_currency_enabled
+msgid "Enable Multi Currency"
+msgstr "Включить мультивалютность"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/currency_selection_popup.xml:0
+msgid "Enter rate"
+msgstr "Введите курс"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_payment__exchange_rate
+msgid "Exchange Rate"
+msgstr "Обменный курс"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/components/order_receipt.xml:0
+msgid "Exchange Rate: 1"
+msgstr "Обменный курс: 1"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/components/currency_rate_info.xml:0
+msgid "Exchange Rates"
+msgstr "Обменные курсы"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_payment_method__fixed_currency_id
+msgid "Fixed Currency"
+msgstr "Фиксированная валюта"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_tree_enhanced
+msgid "Foreign Amount"
+msgstr "Сумма в инвалюте"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_session__foreign_currency_count
+msgid "Foreign Currencies"
+msgstr "Иностранные валюты"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_order__foreign_currency_count
+msgid "Foreign Currencies Used"
+msgstr "Использованные иностранные валюты"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_order__foreign_currency_details
+msgid "Foreign Currency Breakdown"
+msgstr "Разбивка по иностранным валютам"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_search_enhanced
+msgid "Foreign Currency Only"
+msgstr "Только иностранная валюта"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_search
+msgid "Foreign Currency Payments"
+msgstr "Платежи в иностранной валюте"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_session__foreign_payment_count
+msgid "Foreign Payments"
+msgstr "Инвалютные платежи"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_list
+msgid "Foreign Pmts"
+msgstr "Инвал. плат."
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_list
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_list
+msgid "Foreign Total"
+msgstr "Итого инвал."
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_session__has_foreign_payments
+msgid "Has Foreign Currency"
+msgstr "Есть иностранная валюта"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_order__has_foreign_payments
+msgid "Has Foreign Currency Payments"
+msgstr "Есть платежи в иностранной валюте"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_config__id
+#: model:ir.model.fields,field_description:pos_multi.field_pos_order__id
+#: model:ir.model.fields,field_description:pos_multi.field_pos_payment__id
+#: model:ir.model.fields,field_description:pos_multi.field_pos_payment_method__id
+#: model:ir.model.fields,field_description:pos_multi.field_pos_session__id
+#: model:ir.model.fields,field_description:pos_multi.field_res_currency__id
+msgid "ID"
+msgstr "ID"
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_config__multi_currency_allow_rate_edit
+msgid ""
+"If enabled, users with permission can manually adjust the exchange rate at "
+"payment time."
+msgstr "Если включено, пользователи с разрешением могут вручную корректировать обменный курс во время оплаты."
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_config_form
+msgid "If set, all amounts on receipts will be displayed in this currency"
+msgstr "Если установлено, все суммы в чеках будут отображаться в этой валюте"
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_config__multi_currency_receipt_currency_id
+msgid ""
+"If set, all amounts on receipts will be displayed in this currency, "
+"regardless of the order's base currency."
+msgstr "Если установлено, все суммы в чеках будут отображаться в этой валюте, независимо от базовой валюты заказа."
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/statistics_popup.xml:0
+msgid "Loading…"
+msgstr "Загрузка…"
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_payment_method__fixed_currency_id
+msgid ""
+"Lock this payment method to a single currency. When set, multi-currency "
+"selection is skipped and this currency is used automatically."
+msgstr "Заблокировать этот способ оплаты для одной валюты. Если установлено, выбор мультивалютности пропускается, и эта валюта используется автоматически."
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_list
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_list
+msgid "MC"
+msgstr "МВ"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_tree_enhanced
+msgid "Manual"
+msgstr "Вручную"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_search_enhanced
+msgid "Manual Edit"
+msgstr "Ручное редактирование"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+msgid "Manual Edits"
+msgstr "Ручные правки"
+
+#. module: pos_multi
+#: model:ir.actions.act_window,name:pos_multi.action_pos_payment_manual_rates
+#: model:ir.model.fields,field_description:pos_multi.field_pos_session__manual_rate_edit_count
+#: model:ir.ui.menu,name:pos_multi.menu_pos_payment_manual_rates
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_search
+msgid "Manual Rate Edits"
+msgstr "Ручное изменение курсов"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_list
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_list
+msgid "Manual Rates"
+msgstr "Ручные курсы"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_search_enhanced
+msgid "Manual Rates Only"
+msgstr "Только ручные курсы"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_order__manual_rate_count
+msgid "Manually Edited Rates"
+msgstr "Курсы, измененные вручную"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/components/multi_currency_badge.xml:0
+msgid "Manually edited"
+msgstr "Изменено вручную"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/rate_edit_popup.xml:0
+msgid "Market Rate:"
+msgstr "Рыночный курс:"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_config_form
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_payment_view
+msgid "Multi Currency"
+msgstr "Мультивалютность"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/screens/payment_screen_multi_currency.xml:0
+msgid "Multi Currency OFF"
+msgstr "Мультивалютность ВЫКЛ"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/screens/payment_screen_multi_currency.xml:0
+msgid "Multi Currency ON"
+msgstr "Мультивалютность ВКЛ"
+
+#. module: pos_multi
+#: model:ir.ui.menu,name:pos_multi.menu_pos_multi_currency_dashboard
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_form
+msgid "Multi-Currency"
+msgstr "Мультивалютный"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_graph
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_session_multi_currency_pivot
+msgid "Multi-Currency Analysis"
+msgstr "Мультивалютный анализ"
+
+#. module: pos_multi
+#: model:ir.actions.act_window,name:pos_multi.pos_multi_currency_dashboard_action
+msgid "Multi-Currency Dashboard"
+msgstr "Мультивалютная панель"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+msgid "Multi-Currency Details"
+msgstr "Мультивалютные детали"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/screens/receipt_screen_multi_currency.xml:0
+#: model:ir.actions.act_window,name:pos_multi.action_pos_payment_multi_currency
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_tree_enhanced
+msgid "Multi-Currency Payments"
+msgstr "Мультивалютные платежи"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_pivot
+msgid "Multi-Currency Pivot"
+msgstr "Мультивалютная сводная таблица"
+
+#. module: pos_multi
+#: model:ir.actions.act_window,name:pos_multi.action_pos_session_multi_currency_dashboard
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_session_multi_currency_graph
+msgid "Multi-Currency Sessions"
+msgstr "Мультивалютные сессии"
+
+#. module: pos_multi
+#: model_terms:ir.actions.act_window,help:pos_multi.action_pos_payment_manual_rates
+msgid "No manual rate edits"
+msgstr "Нет ручных изменений курса"
+
+#. module: pos_multi
+#: model_terms:ir.actions.act_window,help:pos_multi.pos_multi_currency_dashboard_action
+msgid "No multi-currency orders yet"
+msgstr "Мультивалютных заказов пока нет"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/statistics_popup.xml:0
+msgid "No multi-currency payments in this session yet."
+msgstr "В этой сессии пока нет мультивалютных платежей."
+
+#. module: pos_multi
+#: model_terms:ir.actions.act_window,help:pos_multi.action_pos_payment_multi_currency
+msgid "No multi-currency payments yet"
+msgstr "Мультивалютных платежей пока нет"
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_order__foreign_currency_count
+msgid "Number of different foreign currencies used in payments."
+msgstr "Количество различных иностранных валют, использованных в платежах."
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_session__foreign_currency_count
+msgid "Number of different foreign currencies used in this session."
+msgstr "Количество различных иностранных валют, использованных в этой сессии."
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_session__foreign_payment_count
+msgid "Number of payment lines using foreign currency."
+msgstr "Количество платежных строк с использованием иностранной валюты."
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_order__manual_rate_count
+msgid "Number of payment lines with manually edited exchange rates."
+msgstr "Количество платежных строк с вручную измененными обменными курсами."
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_session__manual_rate_edit_count
+msgid "Number of payments with manually edited rates."
+msgstr "Количество платежей с вручную измененными курсами."
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_config__multi_currency_rate_edit_group_id
+msgid "Only users in this group can edit exchange rates."
+msgstr "Только пользователи этой группы могут редактировать обменные курсы."
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/rate_edit_popup.xml:0
+msgid "Order Amount:"
+msgstr "Сумма заказа:"
+
+#. module: pos_multi
+#: model_terms:ir.actions.act_window,help:pos_multi.pos_multi_currency_dashboard_action
+msgid "Orders with foreign currency payments will appear here."
+msgstr "Заказы с оплатой в иностранной валюте появятся здесь."
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/components/order_receipt.xml:0
+msgid "Original:"
+msgstr "Исходная сумма:"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_graph
+msgid "Payment Analysis"
+msgstr "Анализ платежей"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_payment__payment_currency_id
+msgid "Payment Currency"
+msgstr "Валюта платежа"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/rate_edit_popup.xml:0
+msgid "Payment Currency:"
+msgstr "Валюта платежа:"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_search_enhanced
+msgid "Payment Date"
+msgstr "Дата платежа"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_search_enhanced
+msgid "Payment Method"
+msgstr "Способ оплаты"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_pivot
+msgid "Payment Pivot"
+msgstr "Сводная таблица платежей"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_search_enhanced
+msgid "Payment Search"
+msgstr "Поиск платежей"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+msgid "Payments"
+msgstr "Платежи"
+
+#. module: pos_multi
+#: model:ir.ui.menu,name:pos_multi.menu_pos_payment_multi_currency
+msgid "Payments (Multi-Currency)"
+msgstr "Платежи (Мультивалютные)"
+
+#. module: pos_multi
+#: model_terms:ir.actions.act_window,help:pos_multi.action_pos_payment_multi_currency
+msgid "Payments made in foreign currencies will appear here."
+msgstr "Платежи, совершенные в иностранных валютах, появятся здесь."
+
+#. module: pos_multi
+#: model_terms:ir.actions.act_window,help:pos_multi.action_pos_payment_manual_rates
+msgid ""
+"Payments with manually edited exchange rates will appear here for audit "
+"purposes."
+msgstr "Платежи с вручную измененными обменными курсами будут отображаться здесь для аудита."
+
+#. module: pos_multi
+#: model:ir.model,name:pos_multi.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr "Конфигурация точки продаж"
+
+#. module: pos_multi
+#: model:ir.model,name:pos_multi.model_pos_order
+msgid "Point of Sale Orders"
+msgstr "Заказы точки продаж"
+
+#. module: pos_multi
+#: model:ir.model,name:pos_multi.model_pos_payment_method
+msgid "Point of Sale Payment Methods"
+msgstr "Способы оплаты точки продаж"
+
+#. module: pos_multi
+#: model:ir.model,name:pos_multi.model_pos_payment
+msgid "Point of Sale Payments"
+msgstr "Платежи точки продаж"
+
+#. module: pos_multi
+#: model:ir.model,name:pos_multi.model_pos_session
+msgid "Point of Sale Session"
+msgstr "Сессия точки продаж"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_tree_enhanced
+msgid "Rate"
+msgstr "Курс"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_config__multi_currency_rate_edit_group_id
+msgid "Rate Edit Security Group"
+msgstr "Группа безопасности для редактирования курса"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_payment__rate_manually_edited
+msgid "Rate Manually Edited"
+msgstr "Курс изменен вручную"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/utils/currency_utils.js:0
+msgid "Rate deviates more than %s%% from market. Confirm to proceed."
+msgstr "Курс отклоняется более чем на %s%% от рыночного. Подтвердите для продолжения."
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/components/currency_rate_info.xml:0
+msgid "Rate manually edited"
+msgstr "Курс изменен вручную"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/utils/currency_utils.js:0
+msgid "Rate must be a positive number."
+msgstr "Курс должен быть положительным числом."
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_payment__exchange_rate
+msgid ""
+"Rate used: 1 unit of order currency = exchange_rate units of payment "
+"currency."
+msgstr "Используемый курс: 1 единица валюты заказа = exchange_rate единиц валюты платежа."
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/components/multi_currency_badge.xml:0
+msgid "Rate:"
+msgstr "Курс:"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_config__multi_currency_receipt_currency_id
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_config_form
+msgid "Receipt Display Currency"
+msgstr "Валюта отображения в чеке"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_config_form
+msgid "Same as order currency"
+msgstr "Как в заказе"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+msgid "See JSON field below for detailed breakdown"
+msgstr "Смотрите поле JSON ниже для детальной разбивки"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_search_enhanced
+msgid "Session"
+msgstr "Сессия"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_form
+msgid "Session Statistics"
+msgstr "Статистика сессии"
+
+#. module: pos_multi
+#: model:ir.ui.menu,name:pos_multi.menu_pos_session_multi_currency
+msgid "Sessions (Multi-Currency)"
+msgstr "Сессии (Мультивалютные)"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/screens/payment_screen_multi_currency.xml:0
+msgid "Statistics"
+msgstr "Статистика"
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_order__total_foreign_amount
+msgid "Sum of all foreign currency payments converted to order currency."
+msgstr "Сумма всех платежей в иностранной валюте, конвертированная в валюту заказа."
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_order_form
+msgid "Summary Statistics"
+msgstr "Сводная статистика"
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_payment__payment_currency_amount
+msgid "The amount expressed in the payment currency."
+msgstr "Сумма, выраженная в валюте платежа."
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_payment__payment_currency_id
+msgid ""
+"The currency the customer actually paid in (may differ from order currency)."
+msgstr "Валюта, которой фактически заплатил клиент (может отличаться от валюты заказа)."
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_search_enhanced
+msgid "This Month"
+msgstr "Этот месяц"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_search_enhanced
+msgid "This Week"
+msgstr "Эта неделя"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_search_enhanced
+msgid "Today"
+msgstr "Сегодня"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/screens/payment_screen_multi_currency.xml:0
+msgid "Toggle multi-currency for this session"
+msgstr "Переключить мультивалютность для этой сессии"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/components/order_receipt.xml:0
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_tree_enhanced
+msgid "Total"
+msgstr "Итого"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/statistics_popup.xml:0
+msgid "Total (base)"
+msgstr "Всего (база)"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/statistics_popup.xml:0
+msgid "Total (foreign)"
+msgstr "Всего (инвал)"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_payment_multi_currency_tree_enhanced
+msgid "Total Foreign"
+msgstr "Всего инвал"
+
+#. module: pos_multi
+#: model:ir.model.fields,field_description:pos_multi.field_pos_order__total_foreign_amount
+#: model:ir.model.fields,field_description:pos_multi.field_pos_session__total_foreign_amount
+msgid "Total Foreign Amount"
+msgstr "Общая сумма в инвалюте"
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_session__total_foreign_amount
+msgid "Total of all foreign currency payments converted to session currency."
+msgstr "Сумма всех платежей в иностранной валюте, конвертированная в валюту сессии."
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/statistics_popup.xml:0
+msgid "Totals"
+msgstr "Итоги"
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_payment__rate_manually_edited
+msgid "True if the cashier manually overrode the exchange rate."
+msgstr "Истина, если кассир вручную изменил обменный курс."
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_order__has_foreign_payments
+msgid "True if this order has at least one payment in a foreign currency."
+msgstr "Истина, если этот заказ имеет хотя бы один платеж в иностранной валюте."
+
+#. module: pos_multi
+#: model:ir.model.fields,help:pos_multi.field_pos_session__has_foreign_payments
+msgid "True if this session has any foreign currency payments."
+msgstr "Истина, если эта сессия имеет какие-либо платежи в иностранной валюте."
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/popups/statistics_popup.xml:0
+msgid "Txns"
+msgstr "Транз"
+
+#. module: pos_multi
+#. odoo-javascript
+#: code:addons/pos_multi/static/src/js/screens/payment_screen_multi_currency.xml:0
+msgid "View multi-currency statistics for this session"
+msgstr "Просмотр мультивалютной статистики для этой сессии"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_search
+msgid "With Foreign Currency"
+msgstr "С иностранной валютой"
+
+#. module: pos_multi
+#: model_terms:ir.ui.view,arch_db:pos_multi.pos_multi_currency_session_search
+msgid "With Manual Rates"
+msgstr "С ручными курсами"
